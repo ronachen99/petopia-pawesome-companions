@@ -10,10 +10,6 @@ const needSchema = new Schema({
     type: String,
     required: true,
   },
-  fulfilled: {
-    type: Boolean,
-    required: true,
-  },
 });
 
 module.exports = needSchema;

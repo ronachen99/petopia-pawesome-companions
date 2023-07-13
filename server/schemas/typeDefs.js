@@ -21,7 +21,6 @@ const typeDefs = gql`
     _id: ID!
     needType: String
     description: String
-    fulfilled: Boolean
   }
 
   type Species {
@@ -38,6 +37,7 @@ const typeDefs = gql`
   type Query {
     user: User
     species: [Species]
+    needs: [Need]
   }
 
   type Mutation {
