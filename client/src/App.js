@@ -1,69 +1,55 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import axios from 'axios';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
-import Home from './components/Home';
-import Signup from './components/Signup';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
+import Nav from './components/Nav';
+import Footer from './components/Footer';
+
+const httpLink = createHttpLink({
+  uri: '/graphql'
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+});
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem('token') || '');
-
-  // Function to handle user registration
-  const handleSignup = async (userData) => {
-    try {
-      const response = await axios.post('/api/auth/signup', userData);
-      const { token } = response.data;
-      setToken(token);
-      localStorage.setItem('token', token);
-    } catch (error) {
-      console.error('Error registering user:', error);
-    }
-  };
-
-  // Function to handle user login
-  const handleLogin = async (userData) => {
-    try {
-      const response = await axios.post('/api/auth/login', userData);
-      const { token } = response.data;
-      setToken(token);
-      localStorage.setItem('token', token);
-    } catch (error) {
-      console.error('Error logging in:', error);
-    }
-  };
-
-  // Function to handle user logout
-  const handleLogout = () => {
-    setToken('');
-    localStorage.removeItem('token');
-  };
-
   return (
-    <Router>
-      <div className="App">
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route
-            path="/register"
-            render={(props) => (
-              <Signup {...props} handleSignup={handleSignup} />
-            )}
-          />
-          <Route
-            path="/login"
-            render={(props) => <Login {...props} handleLogin={handleLogin} />}
-          />
-          <Route
-            path="/dashboard"
-            render={(props) => (
-              <Dashboard {...props} token={token} handleLogout={handleLogout} />
-            )}
-          />
-        </Switch>
-      </div>
-    </Router>
+    <ApolloProvider client={client}>
+      <Router>
+        <div>
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/signup" element={<Dashboard />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+    </ApolloProvider>
   );
 }
 

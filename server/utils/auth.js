@@ -1,81 +1,35 @@
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const User = require('../models/User');
 
-// Function to generate JWT token
-function generateToken(user) {
-  const payload = {
-    id: user._id,
-    email: user.email
-  };
-
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
-  return token;
-}
-
-// Register a new user
-async function register(req, res) {
-  const { email, password } = req.body;
-
-  try {
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: 'User already exists.' });
-    }
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create a new user
-    const newUser = new User({
-      email,
-      password: hashedPassword
-    });
-
-    await newUser.save();
-
-    // Generate JWT token
-    const token = generateToken(newUser);
-
-    res.status(201).json({ message: 'User registered successfully.', token });
-  } catch (error) {
-    console.error('Error registering user:', error);
-    res
-      .status(500)
-      .json({ message: 'An error occurred while registering user.' });
-  }
-}
-
-// Login user
-async function login(req, res) {
-  const { email, password } = req.body;
-
-  try {
-    // Check if user exists
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password.' });
-    }
-
-    // Compare passwords
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid email or password.' });
-    }
-
-    // Generate JWT token
-    const token = generateToken(user);
-
-    res.json({ message: 'Login successful.', token });
-  } catch (error) {
-    console.error('Error logging in:', error);
-    res.status(500).json({ message: 'An error occurred while logging in.' });
-  }
-}
+const secret = 'mysecretsshhhhh';
+const expiration = '2h';
 
 module.exports = {
-  register,
-  login
+  authMiddleware({ req }) {
+    // Allows token to be sent via req.body, req.query, or headers
+    let token = req.body.token || req.query.token || req.headers.authorization;
+
+    // ["Bearer", "<tokenvalue>"]
+    if (req.headers.authorization) {
+      token = token.split(' ').pop().trim();
+    }
+
+    if (!token) {
+      return req;
+    }
+
+    try {
+      const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      req.user = data;
+    } catch (err) {
+      console.error(err);
+      console.log('Invalid token');
+    }
+
+    return req;
+  },
+  signToken({ email, _id }) {
+    const payload = { email, _id };
+
+    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  }
 };
