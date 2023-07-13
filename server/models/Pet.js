@@ -11,9 +11,10 @@ const Species = require('./Species');
 const petSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    maxlength: 20,
+    minlength: 1
   },
-  species: Species.schema,
   age: {
     type: Number,
     required: true,
@@ -22,8 +23,10 @@ const petSchema = new Schema({
   },
   gender: {
     type: String,
-    required: true
+    required: true,
+    enum: ['Male', 'Female']
   },
+  species: Species.schema,
   needs: [Need.schema],
   owner: {
     type: Schema.Types.ObjectId,
