@@ -8,7 +8,7 @@ const typeDefs = gql`
   }
 
   type Pet {
-    petID: ID!
+    _id: ID!
     name: String
     age: Int
     gender: String
@@ -18,14 +18,14 @@ const typeDefs = gql`
   }
 
   type Need {
-    needID: ID!
+    _id: ID!
     needType: String
     description: String
     fulfilled: Boolean
   }
 
   type Species {
-    speciesID: ID!
+    _id: ID!
     speciesType: String
     description: String
   }
@@ -37,9 +37,7 @@ const typeDefs = gql`
 
   type Query {
     user(_id: ID!): User
-    pet(petID: ID!): Pet
     species: [Species]
-    needs: [Need]
   }
 
   type Mutation {
@@ -53,7 +51,7 @@ const typeDefs = gql`
       owner: ID!
     ): Pet
     updatePet(petID: ID!, name: String!): Pet
-    deletePet(petID: ID!): User
+    deletePet(petID: ID!, userID: ID!): User
   }
 `;
 
