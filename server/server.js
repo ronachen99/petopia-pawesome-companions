@@ -1,31 +1,24 @@
-const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
-const mongoose = require("mongoose");
-const { schema, root } = require("./schema/petSchema");
+require('dotenv').config();
+const express = require('express');
+const { graphqlHTTP } = require('express-graphql');
+const mongoose = require('mongoose');
+const { schema, root } = require('./schema/petSchema');
+const connectDB = require('./config/connection');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-mongoose
-  .connect("mongodb://localhost/virtual_pet", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
-  });
+connectDB(); // Connect to MongoDB
 
 app.use(
-  "/graphql",
+  '/graphql',
   graphqlHTTP({
     schema: schema,
     rootValue: root,
-    graphiql: true,
+    graphiql: true
   })
 );
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
