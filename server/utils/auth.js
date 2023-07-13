@@ -7,7 +7,6 @@ const User = require('../models/User');
 function generateToken(user) {
   const payload = {
     id: user._id,
-    username: user.username,
     email: user.email
   };
 
@@ -17,15 +16,13 @@ function generateToken(user) {
 
 // Register a new user
 async function register(req, res) {
-  const { username, email, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     // Check if user already exists
-    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: 'Username or email already exists.' });
+      return res.status(400).json({ message: 'User already exists.' });
     }
 
     // Hash the password
@@ -33,7 +30,6 @@ async function register(req, res) {
 
     // Create a new user
     const newUser = new User({
-      username,
       email,
       password: hashedPassword
     });
@@ -54,19 +50,19 @@ async function register(req, res) {
 
 // Login user
 async function login(req, res) {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     // Check if user exists
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: 'Invalid username or password.' });
+      return res.status(401).json({ message: 'Invalid email or password.' });
     }
 
     // Compare passwords
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid username or password.' });
+      return res.status(401).json({ message: 'Invalid email or password.' });
     }
 
     // Generate JWT token
