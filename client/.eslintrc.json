@@ -35,7 +35,7 @@
     "radix": "off"
   },
   "extends": ["prettier"],
-  // "parser": "babel-eslint",
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": true
