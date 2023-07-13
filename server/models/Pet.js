@@ -13,7 +13,7 @@ const petSchema = new Schema({
     type: String,
     required: true
   },
-  species: Species,
+  species: Species.schema,
   age: {
     type: Number,
     required: true,

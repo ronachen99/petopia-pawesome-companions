@@ -18,9 +18,4 @@ const db = async () => {
   }
 };
 
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB database.');
-});
-
 module.exports = db;
