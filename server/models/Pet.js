@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const needSchema = require("./Need");
+const Need = require("./Need");
 
 // define the pet schema
 const petSchema = new Schema({
@@ -28,7 +28,13 @@ const petSchema = new Schema({
     ref: "Species",
     required: true,
   },
-  needs: [needSchema],
+  needs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Need",
+      required: true,
+    },
+  ],
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",

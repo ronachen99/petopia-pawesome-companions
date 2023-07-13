@@ -40,6 +40,11 @@ const typeDefs = gql`
     needs: [Need]
   }
 
+  input NeedInput {
+    needType: String!
+    description: String!
+  }
+
   type Mutation {
     addUser(email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
@@ -52,7 +57,11 @@ const typeDefs = gql`
     ): Pet
     updatePet(petID: ID!, name: String!): Pet
     deletePet(petID: ID!, userID: ID!): User
-    addSpecies(speciesType: String!, description: String!): Species
+    addSpecies(
+      speciesType: String!
+      description: String!
+      needs: [NeedInput]
+    ): Species
     addNeed(needType: String!, description: String!): Need
   }
 `;

@@ -1,4 +1,6 @@
-const { Schema } = require("mongoose");
+const mongoose = require("mongoose");
+
+const { Schema } = mongoose;
 
 // define the need schema
 const needSchema = new Schema({
@@ -12,4 +14,6 @@ const needSchema = new Schema({
   },
 });
 
-module.exports = needSchema;
+const Need = mongoose.model("Need", needSchema);
+
+module.exports = Need;

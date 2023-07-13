@@ -12,7 +12,7 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     species: async () => {
-      return await Species.find();
+      return await Species.find().populate("needs");
     },
     needs: async () => {
       return await Need.find();
@@ -119,9 +119,14 @@ const resolvers = {
       }
       throw new AuthenticationError("Not logged in");
     },
-    addSpecies: async (parent, { speciesType, description }) => {
+    addSpecies: async (parent, { speciesType, description, needs }) => {
       // logic for addSpecies mutation
       const species = await Species.create({ speciesType, description });
+      if (needs && needs.length > 0) {
+        const needIds = await Need.insertMany(needs);
+        species.needs = needIds;
+        await species.save();
+      }
       return species;
     },
     addNeed: async (parent, { needType, description }) => {
