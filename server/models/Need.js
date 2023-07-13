@@ -1,7 +1,4 @@
-// import required dependencies
-const mongoose = require("mongoose");
-
-const { Schema } = mongoose;
+const { Schema } = require("mongoose");
 
 // define the need schema
 const needSchema = new Schema({
@@ -19,7 +16,4 @@ const needSchema = new Schema({
   },
 });
 
-// create the Need model
-const Need = mongoose.model("Need", needSchema);
-
-module.exports = Need;
+module.exports = needSchema;

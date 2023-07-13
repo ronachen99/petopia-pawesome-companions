@@ -9,6 +9,7 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
     "seed": "cd server && npm run seed",
+    "watch": "cd server && npm run watch",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
