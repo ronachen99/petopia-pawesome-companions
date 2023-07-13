@@ -1,43 +1,38 @@
 // import required dependencies
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+
+const Need = require('./Need');
+
+const Species = require('./Species');
 
 // define the pet schema
 const petSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    required: true
   },
-  species: {
-    type: Schema.Types.ObjectId,
-    ref: "Species",
-    required: true,
-  },
+  species: Species,
   age: {
     type: Number,
     required: true,
     min: 0,
-    default: 0,
+    default: 0
   },
   gender: {
     type: String,
-    required: true,
+    required: true
   },
-  needs: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Need",
-    },
-  ],
+  needs: [Need.schema],
   owner: {
     type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
+    ref: 'User',
+    required: true
+  }
 });
 
 // create the Pet model
-const Pet = mongoose.model('Pet', petSchema)
+const Pet = mongoose.model('Pet', petSchema);
 
 module.exports = Pet;
