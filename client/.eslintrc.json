@@ -35,7 +35,7 @@
     "radix": "off"
   },
   "extends": ["prettier"],
-  "parser": "babel-eslint",
+  "plugins": ["react"],
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": true
