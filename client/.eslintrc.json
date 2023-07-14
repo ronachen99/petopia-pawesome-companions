@@ -36,6 +36,9 @@
   },
   "extends": ["prettier"],
   "parser": "babel-eslint",
+  "plugins": [
+    "babel"
+  ],
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": true
