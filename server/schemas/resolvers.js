@@ -71,6 +71,14 @@ const resolvers = {
 
           // update the user's pets array
           await User.findByIdAndUpdate(owner, { $push: { pets: pet._id } });
+          return Pet.findOne({ _id: pet._id })
+            .populate("owner")
+            .populate({
+              path: "species",
+              populate: {
+                path: "needs",
+              },
+            });
         } catch (error) {
           console.log(error);
         }
@@ -83,13 +91,16 @@ const resolvers = {
         try {
           console.log({ petID, name });
           // find the pet by ID and update its name
-          const pet = await Pet.findByIdAndUpdate(
-            petID,
-            { name },
-            { new: true }
-          );
+          await Pet.findByIdAndUpdate(petID, { name }, { new: true });
 
-          return pet;
+          return Pet.findOne({ _id: petID })
+            .populate("owner")
+            .populate({
+              path: "species",
+              populate: {
+                path: "needs",
+              },
+            });
         } catch (error) {
           console.log(error);
         }
@@ -102,14 +113,11 @@ const resolvers = {
         try {
           console.log({ petID, userID });
           // find the pet by ID and owner
-          const pet = await Pet.findOne({ _id: petID, owner: userID });
+          const pet = await Pet.findOneAndDelete({ _id: petID, owner: userID });
 
           if (!pet) {
             throw new Error("Pet not found or you are not the owner.");
           }
-
-          // remove the pet
-          await pet.remove();
 
           // update user's pets arrray
           await User.findByIdAndUpdate(userID, { $pull: { pets: petID } });
