@@ -48,7 +48,7 @@ export const ADD_USER = gql`
 `;
 
 export const UPDATE_PET = gql`
-  mutation UpdatePet($petId: ID!, $name: String!) {
+  mutation updatePet($petId: ID!, $name: String!) {
     updatePet(petID: $petId, name: $name) {
       _id
       name
