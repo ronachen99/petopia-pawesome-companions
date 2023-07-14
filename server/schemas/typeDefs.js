@@ -13,20 +13,20 @@ const typeDefs = gql`
     age: Int
     gender: String
     species: Species
-    needs: [Need]
     owner: User
   }
 
   type Need {
     _id: ID!
-    needType: String
-    description: String
+    needType: String!
+    description: String!
   }
 
   type Species {
     _id: ID!
-    speciesType: String
-    description: String
+    speciesType: String!
+    description: String!
+    needs: [Need]
   }
 
   type Auth {
@@ -37,7 +37,6 @@ const typeDefs = gql`
   type Query {
     user: User
     species: [Species]
-    needs: [Need]
   }
 
   input NeedInput {
@@ -50,7 +49,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addPet(
       name: String!
-      species: ID!
+      species: ID
       age: Int!
       gender: String!
       owner: ID!
@@ -60,9 +59,8 @@ const typeDefs = gql`
     addSpecies(
       speciesType: String!
       description: String!
-      needs: [NeedInput]
+      needs: [NeedInput!]
     ): Species
-    addNeed(needType: String!, description: String!): Need
   }
 `;
 

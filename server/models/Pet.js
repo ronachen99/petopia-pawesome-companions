@@ -26,13 +26,6 @@ const petSchema = new Schema({
     ref: "Species",
     required: true,
   },
-  needs: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Need",
-      required: true,
-    },
-  ],
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",

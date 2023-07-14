@@ -6,16 +6,22 @@ const resolvers = {
   Query: {
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate("pets");
+        const user = await User.findById(context.user._id).populate({
+          path: "pets",
+          populate: {
+            path: "species",
+            populate: {
+              path: "needs",
+            },
+          },
+        });
+        console.log(user);
         return user;
       }
       throw new AuthenticationError("Not logged in");
     },
     species: async () => {
       return await Species.find().populate("needs");
-    },
-    needs: async () => {
-      return await Need.find();
     },
   },
   Mutation: {
@@ -65,8 +71,6 @@ const resolvers = {
 
           // update the user's pets array
           await User.findByIdAndUpdate(owner, { $push: { pets: pet._id } });
-
-          return pet;
         } catch (error) {
           console.log(error);
         }
@@ -120,19 +124,23 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     addSpecies: async (parent, { speciesType, description, needs }) => {
-      // logic for addSpecies mutation
-      const species = await Species.create({ speciesType, description });
-      if (needs && needs.length > 0) {
-        const needIds = await Need.insertMany(needs);
-        species.needs = needIds;
-        await species.save();
+      try {
+        // Create the new species
+        const species = await Species.create({ speciesType, description });
+
+        // if needs are provided, create and associate them with the species
+        if (needs && needs.length > 0) {
+          const createdNeeds = await Need.insertMany(needs);
+          console.log(createdNeeds);
+          await Species.updateOne(
+            { _id: species._id },
+            { $addToSet: { needs: { $each: createdNeeds } } }
+          );
+        }
+        return Species.findOne({ _id: species._id }).populate("needs");
+      } catch (error) {
+        console.log(error);
       }
-      return species;
-    },
-    addNeed: async (parent, { needType, description }) => {
-      // logic for addNeed mutation
-      const need = await Need.create({ needType, description });
-      return need;
     },
   },
 };

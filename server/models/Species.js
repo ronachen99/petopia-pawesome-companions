@@ -17,6 +17,7 @@ const speciesSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Need",
+      required: true,
     },
   ],
 });
