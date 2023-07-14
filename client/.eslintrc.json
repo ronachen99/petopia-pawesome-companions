@@ -34,5 +34,10 @@
     "semi": ["error", "always"],
     "radix": "off"
   },
-  "extends": ["prettier"]
+  "extends": ["prettier"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
+  }
 }
