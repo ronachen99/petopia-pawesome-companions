@@ -1,5 +1,5 @@
 // import required dependencies
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
@@ -7,15 +7,22 @@ const { Schema } = mongoose;
 const speciesSchema = new Schema({
   speciesType: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
+  needs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Need",
+      required: true,
+    },
+  ],
 });
 
 // create the Species model
-const Species = mongoose.model('Species', speciesSchema);
+const Species = mongoose.model("Species", speciesSchema);
 
 module.exports = Species;

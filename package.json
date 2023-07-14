@@ -9,6 +9,7 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
     "seed": "cd server && npm run seed",
+    "watch": "cd server && npm run watch",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -16,13 +17,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "concurrently": "^5.1.0",
-    "eslint": "^8.44.0"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.15",
-    "@heroicons/react": "^2.0.18",
+    "babel-eslint": "^10.1.0",
     "jsonwebtoken": "^9.0.1",
     "prettier": "^3.0.0"
   }
