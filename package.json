@@ -16,10 +16,13 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "babel-eslint": "^10.1.0",
+    "concurrently": "^5.1.0",
+    "eslint": "^8.44.0"
   },
   "dependencies": {
-    "babel-eslint": "^10.1.0",
+    "@headlessui/react": "^1.7.15",
+    "@heroicons/react": "^2.0.18",
     "jsonwebtoken": "^9.0.1",
     "prettier": "^3.0.0"
   }
