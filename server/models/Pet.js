@@ -2,8 +2,6 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const Need = require("./Need");
-
 // define the pet schema
 const petSchema = new Schema({
   name: {
