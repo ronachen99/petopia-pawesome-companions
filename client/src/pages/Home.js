@@ -5,11 +5,12 @@ import React from 'react';
 
 const Home = () => {
   return (
-    <div className="container">
-      <CategoryMenu />
-      <ProductList />
-      <Cart />
-    </div>
+    <div>hello</div>
+    // <div className="container">
+    //   <CategoryMenu />
+    //   <ProductList />
+    //   <Cart />
+    // </div>
   );
 };
 
