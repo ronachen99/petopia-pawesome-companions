@@ -3,13 +3,13 @@ const { User, Pet, Species, Need } = require("../models");
 
 db.once("open", async () => {
   try {
-    // Delete existing data
+    // delete existing data
     await User.deleteMany();
     await Pet.deleteMany();
     await Species.deleteMany();
     await Need.deleteMany();
 
-    // Create sample users
+    // create sample users
     const user1 = await User.create({
       email: "user1@gmail.com",
       password: "12345",
@@ -19,7 +19,7 @@ db.once("open", async () => {
       password: "12345",
     });
 
-    // Create sample species
+    // define the species with its needs
     const speciesData = [
       {
         speciesType: "Dog",
@@ -107,7 +107,7 @@ db.once("open", async () => {
 
     await Promise.all(speciesPromises);
 
-    // Create sample pets for each user
+    // create pets for each sample user
     const petsData = [
       {
         name: "Buddy",
