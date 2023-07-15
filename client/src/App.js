@@ -7,19 +7,24 @@ import Dashboard from './pages/Dashboard';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import Adoption from './pages/Adoption';
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Signup" element={<Signup />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
-      </Routes>
-      <Header />
-      <Nav className="fixed top-0 left-0 right-0" />
-      <Footer />
+      <div>
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Signup" element={<Signup />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/Adoption" element={<Adoption />} />
+        </Routes>
+        <Nav />
+        <Footer />
+      </div>
     </Router>
   );
 }
