@@ -2,3 +2,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.icon:hover {
+    transform: scale(1.1);
+}
+
+body {
+    background-image: url("../public/images/astronaut.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+header,
+footer {
+    background-color: #070506;
+}
+
+* {
+    font-family: 'Space Mono', monospace;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Orbitron', sans-serif;
+}
