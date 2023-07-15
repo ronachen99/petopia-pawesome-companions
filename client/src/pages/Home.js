@@ -1,5 +1,6 @@
 import React from 'react';
-
+import Dashboard from './Dashboard';
+import { Link } from 'react-router-dom';
 const Home = () => {
   return (
     <div className="flex flex-col min-h-screen">
@@ -12,30 +13,31 @@ const Home = () => {
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <a
+                <button
                   href="#"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Petopia
-                </a>
-                <a
+                </button>
+                <button
                   href="#"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Dashboard
-                </a>
-                <a
+                  {' '}
+                  <Link to="/Dashboard">Dashboard</Link>
+                </button>
+                <button
                   href="#"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Pets
-                </a>
-                <a
+                </button>
+                <button
                   href="#"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Contact
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -48,11 +50,9 @@ const Home = () => {
           {/* Your content here */}
           <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
             <h1 className="text-3xl font-bold mb-4">
-              Welcome to the Home Page
+              PETOPIA: Pawesome Companions
             </h1>
-            <p className="text-lg text-gray-600">
-              This is your home page content. Customize it as per your needs.
-            </p>
+            <p className="text-lg text-gray-600">Virtual Pet adoption game.</p>
           </div>
         </div>
       </main>

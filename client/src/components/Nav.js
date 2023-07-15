@@ -89,10 +89,8 @@ function Nav() {
           to="/"
           className="text-gray-800 hover:text-gray-900 transition-colors duration-300"
         >
-          <span role="img" aria-label="shopping bag" className="mr-2">
-            🛍️
-          </span>
-          -Shop-Shop
+          <span role="img" aria-label="shopping bag" className="mr-2"></span>
+          Pet's Dashboard
         </Link>
       </h1>
 

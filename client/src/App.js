@@ -18,7 +18,7 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard />} />
         </Routes>
         <Nav />
-        
+
         <Footer />
       </div>
     </Router>
