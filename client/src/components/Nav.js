@@ -1,80 +1,99 @@
 import React from 'react';
 import Auth from '../utils/auth';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { MdLogout } from 'react-icons/md';
+import {
+  PiUserCircleLight,
+  PiUserCirclePlusLight,
+  PiGhostThin,
+  PiGarageThin,
+  PiHouseLight
+} from 'react-icons/pi';
 
 function Nav() {
+  const location = useLocation();
+
   function showNavigation() {
     if (Auth.loggedIn()) {
       return (
-        <ul className="flex items-center">
-          <li className="mx-2">
-            <Link
-              to="/"
-              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
-            >
-              Home
+        <ul className="flex flex-col items-start">
+          <li
+            className={
+              location.pathname === '/' ||
+              location.pathname.startsWith('/dashboard')
+                ? 'text-blue-500'
+                : 'text-gray-600'
+            }
+          >
+            <Link to="/" className="transition-transform">
+              <PiHouseLight size={28} className="icon" />
             </Link>
           </li>
-          <li className="mx-2">
-            <Link
-              to="/dashboard"
-              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
-            >
-              Dashboard
+          <li
+            className={
+              location.pathname.startsWith('/dashboard')
+                ? 'text-blue-500'
+                : 'text-gray-600'
+            }
+          >
+            <Link to="/dashboard" className="transition-transform">
+              <PiGarageThin size={28} className="icon" />
             </Link>
           </li>
-          <li className="mx-2">
-            <Link
-              to="/contact"
-              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
-            >
-              Contact Us
+          <li
+            className={
+              location.pathname.startsWith('/adoption')
+                ? 'text-blue-500'
+                : 'text-gray-600'
+            }
+          >
+            <Link to="/adoption" className="transition-transform">
+              <PiGhostThin size={28} className="icon" />
             </Link>
           </li>
-          <li className="mx-2">
+          <li>
             {/* Use button element for Logout */}
             <button
               onClick={() => Auth.logout()}
-              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
+              className="text-gray-600 hover:text-blue-500 transition-colors duration-300"
             >
-              Logout
+              <MdLogout size={28} />
             </button>
           </li>
         </ul>
       );
     } else {
       return (
-        <ul className="flex items-center">
-          <li className="mx-2">
-            <Link
-              to="/"
-              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
-            >
-              Home
+        <ul className="flex flex-col items-start">
+          <li
+            className={
+              location.pathname === '/' ? 'text-blue-500' : 'text-gray-600'
+            }
+          >
+            <Link to="/" className="transition-transform">
+              <PiHouseLight size={28} className="icon" />
             </Link>
           </li>
-          <li className="mx-2">
-            <Link
-              to="/contact"
-              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
-            >
-              Contact Us
+          <li
+            className={
+              location.pathname.startsWith('/signup')
+                ? 'text-blue-500'
+                : 'text-gray-600'
+            }
+          >
+            <Link to="/signup" className="transition-transform">
+              <PiUserCirclePlusLight size={28} className="icon" />
             </Link>
           </li>
-          <li className="mx-2">
-            <Link
-              to="/signup"
-              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
-            >
-              Signup
-            </Link>
-          </li>
-          <li className="mx-2">
-            <Link
-              to="/login"
-              className="text-gray-600 hover:text-gray-800 transition-colors duration-300"
-            >
-              Login
+          <li
+            className={
+              location.pathname.startsWith('/login')
+                ? 'text-blue-500'
+                : 'text-gray-600'
+            }
+          >
+            <Link to="/login" className="transition-transform">
+              <PiUserCircleLight size={28} className="icon" />
             </Link>
           </li>
         </ul>
@@ -83,21 +102,9 @@ function Nav() {
   }
 
   return (
-    <header className="flex items-center justify-between px-4 py-2 bg-white shadow">
-      <h1 className="text-lg font-semibold">
-        <Link
-          to="/"
-          className="text-gray-800 hover:text-gray-900 transition-colors duration-300"
-        >
-          <span role="img" aria-label="shopping bag" className="mr-2">
-            🛍️
-          </span>
-          -Shop-Shop
-        </Link>
-      </h1>
-
-      <nav>{showNavigation()}</nav>
-    </header>
+    <nav className="fixed left-4 top-1/2 transform -translate-y-1/2 flex justify-start items-center px-4 py-2 bg-white rounded-lg shadow">
+      {showNavigation()}
+    </nav>
   );
 }
 
