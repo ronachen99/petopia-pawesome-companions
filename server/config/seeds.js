@@ -24,6 +24,7 @@ db.once("open", async () => {
       {
         speciesType: "Dog",
         description: "Canine",
+        image: "../client/public/images/dog.png",
         needs: [
           { needType: "Food", description: "High-quality dog food" },
           { needType: "Exercise", description: "Regular physical activity" },
@@ -33,6 +34,7 @@ db.once("open", async () => {
       {
         speciesType: "Cat",
         description: "Feline",
+        image: "../client/public/images/cat.png",
         needs: [
           { needType: "Food", description: "Nutritious cat food" },
           {
@@ -45,6 +47,7 @@ db.once("open", async () => {
       {
         speciesType: "Ditto",
         description: "Transforming blob",
+        image: "../client/public/images/ditto.png",
         needs: [
           {
             needType: "Mimicry",
@@ -63,6 +66,7 @@ db.once("open", async () => {
       {
         speciesType: "Dragon",
         description: "Mythical creature",
+        image: "../client/public/images/dragon.png",
         needs: [
           { needType: "Flight", description: "Ability to fly" },
           { needType: "Fire Breath", description: "Breathing fire" },
@@ -75,6 +79,7 @@ db.once("open", async () => {
       {
         speciesType: "Slime",
         description: "Amorphous creature",
+        image: "../client/public/images/slime.png",
         needs: [
           {
             needType: "Absorption",
@@ -96,6 +101,7 @@ db.once("open", async () => {
       const createdSpecies = await Species.create({
         speciesType: species.speciesType,
         description: species.description,
+        image: species.image,
       });
 
       const needs = await Need.insertMany(species.needs);

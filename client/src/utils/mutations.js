@@ -16,16 +16,19 @@ export const ADD_SPECIES = gql`
   mutation addSpecies(
     $speciesType: String!
     $description: String!
+    $image: String!
     $needs: [NeedInput!]!
   ) {
     addSpecies(
       speciesType: $speciesType
       description: $description
+      image: $image
       needs: $needs
     ) {
       _id
       speciesType
       description
+      image
       needs {
         _id
         needType
@@ -89,7 +92,7 @@ export const ADD_PET = gql`
     $gender: String!
     $owner: ID!
     $name: String!
-    $species: ID
+    $species: ID!
   ) {
     addPet(
       age: $age
@@ -106,6 +109,7 @@ export const ADD_PET = gql`
         _id
         speciesType
         description
+        image
         needs {
           _id
           needType
