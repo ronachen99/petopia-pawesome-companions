@@ -10,7 +10,7 @@ const Dashboard = () => {
             <img
               class="w-24 h-24 mb-3 rounded-full shadow-lg"
               src="/docs/images/people/profile-picture-3.jpg"
-              alt="Bonnie image"
+              alt="Pet image"
             />
             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
               Andrew P
@@ -40,7 +40,7 @@ const Dashboard = () => {
             <img
               class="w-24 h-24 mb-3 rounded-full shadow-lg"
               src="/docs/images/people/profile-picture-3.jpg"
-              alt="Bonnie image"
+              alt="Pet image"
             />
             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
               Andrew P
@@ -70,7 +70,7 @@ const Dashboard = () => {
             <img
               class="w-24 h-24 mb-3 rounded-full shadow-lg"
               src="/docs/images/people/profile-picture-3.jpg"
-              alt="Bonnie image"
+              alt="Pet image"
             />
             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
               Andrew P
