@@ -26,6 +26,7 @@ const typeDefs = gql`
     _id: ID!
     speciesType: String!
     description: String!
+    image: String!
     needs: [Need]
   }
 
@@ -60,6 +61,7 @@ const typeDefs = gql`
       speciesType: String!
       description: String!
       needs: [NeedInput!]
+      image: String!
     ): Species
   }
 `;

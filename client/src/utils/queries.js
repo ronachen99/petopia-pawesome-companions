@@ -14,6 +14,7 @@ export const QUERY_USER = gql`
           _id
           speciesType
           description
+          image
           needs {
             _id
             needType
@@ -31,6 +32,7 @@ export const QUERY_SPECIES = gql`
       _id
       speciesType
       description
+      image
       needs {
         _id
         needType
