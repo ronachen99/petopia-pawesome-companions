@@ -1,19 +1,27 @@
+// import the necessary dependencies
 import React from "react";
+// import form library
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+// import mutation functions
 import { ADD_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+// for authentication
 import Auth from "../utils/auth";
 
+// a functional component for signup
 const SignupForm = () => {
+  // using the useMutation hook to execute the ADD_USER, the resulting mutation function is destrucutred into addUser
   const [addUser] = useMutation(ADD_USER);
 
+  // predefine form fields to be dynamically populated in the form
   const formFields = [
     { label: "Email", name: "email", type: "email" },
     { label: "Password", name: "password", type: "password" },
     { label: "Confirm Password", name: "confirmPassword", type: "password" },
   ];
 
+  // predefine the validation criteria to be dynamically populated in the form
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email address.")
@@ -26,19 +34,24 @@ const SignupForm = () => {
       .required("Confirm password is required."),
   });
 
+  // set intial states to be dynamically populated in the form
   const initialValues = {
     email: "",
     password: "",
     confirmPassword: "",
   };
 
+  // takes in the userValues object as prameter
   const handleSubmit = async (userValues) => {
     console.log(userValues);
+    // destructure email and password
     const { email, password } = userValues;
+    // add the user using email password
     const { data } = await addUser({
       variables: { email, password },
     });
     console.log(data);
+    // generate token
     Auth.login(data.addUser.token);
     window.location.href = "/";
   };
