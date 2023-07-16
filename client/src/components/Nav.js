@@ -1,14 +1,14 @@
-import React from 'react';
-import Auth from '../utils/auth';
-import { Link, useLocation } from 'react-router-dom';
-import { MdLogout } from 'react-icons/md';
+import React from "react";
+import Auth from "../utils/auth";
+import { Link, useLocation } from "react-router-dom";
+import { MdLogout } from "react-icons/md";
 import {
   PiUserCircleLight,
   PiUserCirclePlusLight,
   PiGhostThin,
   PiGarageThin,
-  PiHouseLight
-} from 'react-icons/pi';
+  PiHouseLight,
+} from "react-icons/pi";
 
 function Nav() {
   const location = useLocation();
@@ -19,10 +19,10 @@ function Nav() {
         <ul className="flex flex-col items-start">
           <li
             className={
-              location.pathname === '/' ||
-              location.pathname.startsWith('/dashboard')
-                ? 'text-blue-500'
-                : 'text-gray-600'
+              location.pathname === "/" ||
+              location.pathname.startsWith("/dashboard")
+                ? "text-blue-500"
+                : "text-gray-600"
             }
           >
             <Link to="/" className="transition-transform">
@@ -31,9 +31,9 @@ function Nav() {
           </li>
           <li
             className={
-              location.pathname.startsWith('/dashboard')
-                ? 'text-blue-500'
-                : 'text-gray-600'
+              location.pathname.startsWith("/dashboard")
+                ? "text-blue-500"
+                : "text-gray-600"
             }
           >
             <Link to="/dashboard" className="transition-transform">
@@ -42,9 +42,9 @@ function Nav() {
           </li>
           <li
             className={
-              location.pathname.startsWith('/adoption')
-                ? 'text-blue-500'
-                : 'text-gray-600'
+              location.pathname.startsWith("/adoption")
+                ? "text-blue-500"
+                : "text-gray-600"
             }
           >
             <Link to="/adoption" className="transition-transform">
@@ -67,7 +67,7 @@ function Nav() {
         <ul className="flex flex-col items-start">
           <li
             className={
-              location.pathname === '/' ? 'text-blue-500' : 'text-gray-600'
+              location.pathname === "/" ? "text-blue-500" : "text-gray-600"
             }
           >
             <Link to="/" className="transition-transform">
@@ -76,9 +76,9 @@ function Nav() {
           </li>
           <li
             className={
-              location.pathname.startsWith('/signup')
-                ? 'text-blue-500'
-                : 'text-gray-600'
+              location.pathname.startsWith("/signup")
+                ? "text-blue-500"
+                : "text-gray-600"
             }
           >
             <Link to="/signup" className="transition-transform">
@@ -87,9 +87,9 @@ function Nav() {
           </li>
           <li
             className={
-              location.pathname.startsWith('/login')
-                ? 'text-blue-500'
-                : 'text-gray-600'
+              location.pathname.startsWith("/login")
+                ? "text-blue-500"
+                : "text-gray-600"
             }
           >
             <Link to="/login" className="transition-transform">
