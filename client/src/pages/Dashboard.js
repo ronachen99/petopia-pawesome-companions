@@ -1,16 +1,35 @@
 import React from "react";
 import { QUERY_USER } from "../utils/queries";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
+import { DELETE_PET } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 const Dashboard = () => {
   const { loading, data } = useQuery(QUERY_USER);
+  const [deletePet] = useMutation(DELETE_PET);
   const userData = data?.getUser || {};
   console.log(userData);
+
+  const handleDeletePet = async (petId, userId) => {
+    console.log(petId, userId);
+
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      await deletePet({ variables: { petId, userId } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   if (loading) {
     return <h2>LOADING...</h2>;
   }
-
+  console.log(data);
   return (
     <div className="flex flex-col justify-center min-h-screen">
       <div className="flex flex-wrap justify-center">
@@ -36,6 +55,12 @@ const Dashboard = () => {
                   {need.needType}
                 </p>
               ))}
+              <button
+                onClick={() => handleDeletePet(pet._id, data.user._id)}
+                className="mt-4 px-4 py-2 text-sm font-medium text-white bg-red-500 rounded hover:bg-red-600"
+              >
+                Delete
+              </button>
             </div>
           </div>
         ))}
