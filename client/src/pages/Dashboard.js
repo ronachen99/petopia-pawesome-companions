@@ -1,97 +1,44 @@
-import React from 'react';
+import React from "react";
+import { QUERY_USER } from "../utils/queries";
+import { useQuery } from "@apollo/client";
 
 const Dashboard = () => {
+  const { loading, data } = useQuery(QUERY_USER);
+  const userData = data?.getUser || {};
+  console.log(userData);
+
+  if (loading) {
+    return <h2>LOADING...</h2>;
+  }
+
   return (
-    <div class="flex">
-      <div class="flex-auto">
-        <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <div class="flex justify-end px-4 pt-4"></div>
-          <div class="flex flex-col items-center pb-10">
-            <img
-              class="w-24 h-24 mb-3 rounded-full shadow-lg"
-              src="/docs/images/people/profile-picture-3.jpg"
-              alt="Pet image"
-            />
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              Andrew P
-            </h5>
-            <span class="text-sm text-gray-500 dark:text-gray-400">Owner</span>
-            <div class="flex mt-4 space-x-3 md:mt-6">
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Pet Name
-              </a>
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
-              >
-                Species
-              </a>
+    <div className="flex flex-col justify-center min-h-screen">
+      <div className="flex flex-wrap justify-center">
+        {data.user.pets.map((pet) => (
+          <div
+            key={pet._id}
+            className="m-2 w-full max-w-sm bg-white border rounded-lg"
+          >
+            <div className="flex flex-col items-center pt-6 pb-4">
+              <img
+                className="w-24 h-24 mt-2 mb-1 rounded-full shadow-lg"
+                src={pet.species.image}
+                alt={pet.species.alt}
+              />
+              <h3 className="mb-1 text-xl font-medium text-gray-900">
+                {pet.name}
+              </h3>
+              <h4 className="text-sm text-gray-500">
+                {pet.species.speciesType}
+              </h4>
+              {pet.species.needs.map((need) => (
+                <p key={need._id} className="mt-2">
+                  {need.needType}
+                </p>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
-      <div class="flex-auto">
-        <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <div class="flex justify-end px-4 pt-4"></div>
-          <div class="flex flex-col items-center pb-10">
-            <img
-              class="w-24 h-24 mb-3 rounded-full shadow-lg"
-              src="/docs/images/people/profile-picture-3.jpg"
-              alt="Pet image"
-            />
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              Andrew P
-            </h5>
-            <span class="text-sm text-gray-500 dark:text-gray-400">Owner</span>
-            <div class="flex mt-4 space-x-3 md:mt-6">
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Pet Name
-              </a>
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
-              >
-                Species
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex-auto">
-        <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <div class="flex justify-end px-4 pt-4"></div>
-          <div class="flex flex-col items-center pb-10">
-            <img
-              class="w-24 h-24 mb-3 rounded-full shadow-lg"
-              src="/docs/images/people/profile-picture-3.jpg"
-              alt="Pet image"
-            />
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              Andrew P
-            </h5>
-            <span class="text-sm text-gray-500 dark:text-gray-400">Owner</span>
-            <div class="flex mt-4 space-x-3 md:mt-6">
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Pet Name
-              </a>
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
-              >
-                Species
-              </a>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

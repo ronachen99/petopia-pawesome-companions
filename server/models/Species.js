@@ -24,6 +24,10 @@ const speciesSchema = new Schema({
     type: String,
     required: true,
   },
+  alt: {
+    type: String,
+    required: true,
+  },
 });
 
 // create the Species model

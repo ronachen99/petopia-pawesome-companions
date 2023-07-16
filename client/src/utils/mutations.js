@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
@@ -17,18 +17,21 @@ export const ADD_SPECIES = gql`
     $speciesType: String!
     $description: String!
     $image: String!
+    $alt: String!
     $needs: [NeedInput!]!
   ) {
     addSpecies(
       speciesType: $speciesType
       description: $description
       image: $image
+      alt: $alt
       needs: $needs
     ) {
       _id
       speciesType
       description
       image
+      alt
       needs {
         _id
         needType
@@ -61,6 +64,8 @@ export const UPDATE_PET = gql`
         _id
         speciesType
         description
+        image
+        alt
         needs {
           _id
           needType
@@ -110,6 +115,7 @@ export const ADD_PET = gql`
         speciesType
         description
         image
+        alt
         needs {
           _id
           needType

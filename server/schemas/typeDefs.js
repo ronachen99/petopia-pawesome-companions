@@ -28,6 +28,7 @@ const typeDefs = gql`
     description: String!
     image: String!
     needs: [Need]
+    alt: String!
   }
 
   type Auth {
@@ -62,6 +63,7 @@ const typeDefs = gql`
       description: String!
       needs: [NeedInput!]
       image: String!
+      alt: String!
     ): Species
   }
 `;
