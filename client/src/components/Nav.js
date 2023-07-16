@@ -1,13 +1,13 @@
 import React from "react";
 import Auth from "../utils/auth";
 import { Link, useLocation } from "react-router-dom";
-import { MdLogout } from "react-icons/md";
 import {
-  PiUserCircleLight,
-  PiUserCirclePlusLight,
+  PiUserCircleThin,
+  PiUserCirclePlusThin,
   PiGhostThin,
   PiGarageThin,
-  PiHouseLight,
+  PiHouseThin,
+  PiSignOutThin,
 } from "react-icons/pi";
 
 function Nav() {
@@ -19,14 +19,13 @@ function Nav() {
         <ul className="flex flex-col items-start">
           <li
             className={
-              location.pathname === "/" ||
-              location.pathname.startsWith("/dashboard")
+              location.pathname === "/" || location.pathname.startsWith("/home")
                 ? "text-blue-500"
                 : "text-gray-600"
             }
           >
             <Link to="/" className="transition-transform">
-              <PiHouseLight size={28} className="icon" />
+              <PiHouseThin size={28} className="icon" />
             </Link>
           </li>
           <li
@@ -52,11 +51,8 @@ function Nav() {
             </Link>
           </li>
           <li>
-            <button
-              onClick={() => Auth.logout()}
-              className="text-gray-600 hover:text-blue-500 transition-colors duration-300"
-            >
-              <MdLogout size={28} />
+            <button onClick={() => Auth.logout()} className="icon">
+              <PiSignOutThin size={28} />
             </button>
           </li>
         </ul>
@@ -70,7 +66,7 @@ function Nav() {
             }
           >
             <Link to="/" className="transition-transform">
-              <PiHouseLight size={28} className="icon" />
+              <PiHouseThin size={28} className="icon" />
             </Link>
           </li>
           <li
@@ -81,7 +77,7 @@ function Nav() {
             }
           >
             <Link to="/signup" className="transition-transform">
-              <PiUserCirclePlusLight size={28} className="icon" />
+              <PiUserCirclePlusThin size={28} className="icon" />
             </Link>
           </li>
           <li
@@ -92,7 +88,7 @@ function Nav() {
             }
           >
             <Link to="/login" className="transition-transform">
-              <PiUserCircleLight size={28} className="icon" />
+              <PiUserCircleThin size={28} className="icon" />
             </Link>
           </li>
         </ul>
