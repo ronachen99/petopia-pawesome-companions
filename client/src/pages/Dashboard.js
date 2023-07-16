@@ -1,6 +1,11 @@
 import React from "react";
+import { QUERY_USER } from "../utils/queries";
+import { useQuery } from "@apollo/client";
+import Auth from "../utils/auth";
 
 const Dashboard = () => {
+  const { loading, data } = useQuery;
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="flex justify-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 ">
