@@ -47,7 +47,7 @@ const SignupForm = () => {
         onSubmit={handleSubmit}
       >
         {({ isValid, isSubmitting }) => (
-          <div className="relative w-full md:w-1/2 lg:w-1/3">
+          <div className="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-1/3">
             <div className="shadow-lg bg-white rounded-lg p-8">
               <h1 className="text-center text-2xl">Sign Up</h1>
 
@@ -55,7 +55,7 @@ const SignupForm = () => {
                 {formFields.map((field, index) => (
                   <div className="mb-4" key={index}>
                     <label
-                      className="block text-sm font-bold mb-2 text-gray-700"
+                      className="block text-sm font-bold mb-2"
                       htmlFor={field.name}
                     >
                       {field.label}
