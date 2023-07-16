@@ -24,7 +24,8 @@ db.once("open", async () => {
       {
         speciesType: "Dog",
         description: "Canine",
-        image: "../client/public/images/dog.png",
+        image: "./images/dog.png",
+        alt: "cute pixel dog",
         needs: [
           { needType: "Food", description: "High-quality dog food" },
           { needType: "Exercise", description: "Regular physical activity" },
@@ -34,7 +35,8 @@ db.once("open", async () => {
       {
         speciesType: "Cat",
         description: "Feline",
-        image: "../client/public/images/cat.png",
+        image: "./images/cat.png",
+        alt: "cute pixel cat",
         needs: [
           { needType: "Food", description: "Nutritious cat food" },
           {
@@ -47,7 +49,8 @@ db.once("open", async () => {
       {
         speciesType: "Ditto",
         description: "Transforming blob",
-        image: "../client/public/images/ditto.png",
+        image: "./images/ditto.png",
+        alt: "cute pixel ditto",
         needs: [
           {
             needType: "Mimicry",
@@ -66,7 +69,8 @@ db.once("open", async () => {
       {
         speciesType: "Dragon",
         description: "Mythical creature",
-        image: "../client/public/images/dragon.png",
+        image: "./images/dragon.png",
+        alt: "cute pixel dragon",
         needs: [
           { needType: "Flight", description: "Ability to fly" },
           { needType: "Fire Breath", description: "Breathing fire" },
@@ -79,7 +83,8 @@ db.once("open", async () => {
       {
         speciesType: "Slime",
         description: "Amorphous creature",
-        image: "../client/public/images/slime.png",
+        image: "./images/slime.png",
+        alt: "cute pixel slime",
         needs: [
           {
             needType: "Absorption",
@@ -102,6 +107,7 @@ db.once("open", async () => {
         speciesType: species.speciesType,
         description: species.description,
         image: species.image,
+        alt: species.alt,
       });
 
       const needs = await Need.insertMany(species.needs);

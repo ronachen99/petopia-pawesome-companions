@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_USER = gql`
   query getUser {
@@ -15,6 +15,7 @@ export const QUERY_USER = gql`
           speciesType
           description
           image
+          alt
           needs {
             _id
             needType
@@ -33,6 +34,7 @@ export const QUERY_SPECIES = gql`
       speciesType
       description
       image
+      alt
       needs {
         _id
         needType

@@ -1,95 +1,21 @@
-import React from 'react';
+import React from "react";
 
 const Dashboard = () => {
   return (
-    <div class="flex">
-      <div class="flex-auto">
-        <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <div class="flex justify-end px-4 pt-4"></div>
-          <div class="flex flex-col items-center pb-10">
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <div className="flex justify-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 ">
+        <div className="w-full max-w-sm bg-white border rounded-lg">
+          <div className="flex flex-col items-center pt-6 pb-4">
             <img
-              class="w-24 h-24 mb-3 rounded-full shadow-lg"
-              src="/docs/images/people/profile-picture-3.jpg"
+              className="w-24 h-24 mt-2 mb-1 rounded-full shadow-lg"
+              src="./images/cat.png"
               alt="Pet image"
             />
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              Andrew P
-            </h5>
-            <span class="text-sm text-gray-500 dark:text-gray-400">Owner</span>
-            <div class="flex mt-4 space-x-3 md:mt-6">
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Pet Name
-              </a>
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
-              >
-                Species
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex-auto">
-        <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <div class="flex justify-end px-4 pt-4"></div>
-          <div class="flex flex-col items-center pb-10">
-            <img
-              class="w-24 h-24 mb-3 rounded-full shadow-lg"
-              src="/docs/images/people/profile-picture-3.jpg"
-              alt="Pet image"
-            />
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              Andrew P
-            </h5>
-            <span class="text-sm text-gray-500 dark:text-gray-400">Owner</span>
-            <div class="flex mt-4 space-x-3 md:mt-6">
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Pet Name
-              </a>
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
-              >
-                Species
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex-auto">
-        <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <div class="flex justify-end px-4 pt-4"></div>
-          <div class="flex flex-col items-center pb-10">
-            <img
-              class="w-24 h-24 mb-3 rounded-full shadow-lg"
-              src="/docs/images/people/profile-picture-3.jpg"
-              alt="Pet image"
-            />
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              Andrew P
-            </h5>
-            <span class="text-sm text-gray-500 dark:text-gray-400">Owner</span>
-            <div class="flex mt-4 space-x-3 md:mt-6">
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Pet Name
-              </a>
-              <a
-                href="#"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
-              >
-                Species
-              </a>
-            </div>
+            <h3 className="mb-1 text-xl font-medium text-gray-900">name</h3>
+            <h4 className="text-sm text-gray-500">species</h4>
+            <p className="mt-2">need 1</p>
+            <p>need 2</p>
+            <p>need 3</p>
           </div>
         </div>
       </div>

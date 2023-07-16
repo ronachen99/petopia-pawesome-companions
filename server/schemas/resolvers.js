@@ -131,13 +131,17 @@ const resolvers = {
       }
       throw new AuthenticationError("Not logged in");
     },
-    addSpecies: async (parent, { speciesType, description, needs, image }) => {
+    addSpecies: async (
+      parent,
+      { speciesType, description, needs, image, alt }
+    ) => {
       try {
         // Create the new species
         const species = await Species.create({
           speciesType,
           description,
           image,
+          alt,
         });
 
         // if needs are provided, create and associate them with the species
