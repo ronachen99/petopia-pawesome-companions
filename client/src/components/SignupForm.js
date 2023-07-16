@@ -7,6 +7,7 @@ import Auth from "../utils/auth";
 
 const SignupForm = () => {
   const [addUser] = useMutation(ADD_USER);
+
   const formFields = [
     { label: "Email", name: "email", type: "email" },
     { label: "Password", name: "password", type: "password" },
@@ -15,14 +16,14 @@ const SignupForm = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
+      .email("Invalid email address.")
+      .required("Email is required."),
     password: Yup.string()
-      .min(5, "Password must be at least 5 characters")
-      .required("Password is required"),
+      .min(5, "Password must be at least 5 characters.")
+      .required("Password is required."),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm password is required"),
+      .oneOf([Yup.ref("password"), null], "Passwords must match.")
+      .required("Confirm password is required."),
   });
 
   const initialValues = {

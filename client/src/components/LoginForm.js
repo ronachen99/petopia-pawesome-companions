@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { LOGIN } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
 
 const LoginForm = () => {
   const [login] = useMutation(LOGIN);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const formFields = [
     { label: "Email", name: "email", type: "email" },
@@ -14,9 +16,9 @@ const LoginForm = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string().required("Password is required"),
+      .email("Invalid email address.")
+      .required("Email is required."),
+    password: Yup.string().required("Password is required."),
   });
 
   const initialValues = {
@@ -27,10 +29,16 @@ const LoginForm = () => {
   const handleSubmit = async (userValues) => {
     console.log(userValues);
     const { email, password } = userValues;
-    const { data } = await login({
-      variables: { email, password },
-    });
-    console.log(data);
+    try {
+      const { data } = await login({
+        variables: { email, password },
+      });
+      console.log(data);
+      Auth.login(data.login.token);
+      window.location.href = "/";
+    } catch (err) {
+      setErrorMessage("Incorrect credentials. Please try again.");
+    }
   };
 
   return (
@@ -66,6 +74,12 @@ const LoginForm = () => {
                     />
                   </div>
                 ))}
+
+                {errorMessage && (
+                  <p className="text-red-500 text-center mt-4">
+                    {errorMessage}
+                  </p>
+                )}
 
                 <div className="flex justify-end">
                   <button

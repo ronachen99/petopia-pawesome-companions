@@ -71,17 +71,6 @@ function Nav() {
           </li>
           <li
             className={
-              location.pathname.startsWith("/signup")
-                ? "text-blue-500"
-                : "text-gray-600"
-            }
-          >
-            <Link to="/signup" className="transition-transform">
-              <PiUserCirclePlusThin size={28} className="icon" />
-            </Link>
-          </li>
-          <li
-            className={
               location.pathname.startsWith("/login")
                 ? "text-blue-500"
                 : "text-gray-600"
@@ -89,6 +78,17 @@ function Nav() {
           >
             <Link to="/login" className="transition-transform">
               <PiUserCircleThin size={28} className="icon" />
+            </Link>
+          </li>
+          <li
+            className={
+              location.pathname.startsWith("/signup")
+                ? "text-blue-500"
+                : "text-gray-600"
+            }
+          >
+            <Link to="/signup" className="transition-transform">
+              <PiUserCirclePlusThin size={28} className="icon" />
             </Link>
           </li>
         </ul>
