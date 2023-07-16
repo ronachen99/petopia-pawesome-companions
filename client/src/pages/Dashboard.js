@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { QUERY_USER } from "../utils/queries";
 import { useQuery, useMutation } from "@apollo/client";
-import { DELETE_PET } from "../utils/mutations";
+import { DELETE_PET, UPDATE_PET } from "../utils/mutations";
 import Auth from "../utils/auth";
+import { PiPawPrintThin, PiPencilThin } from "react-icons/pi";
 
 const Dashboard = () => {
   const { loading, data } = useQuery(QUERY_USER);
   const [deletePet] = useMutation(DELETE_PET);
+  const [updatePet] = useMutation(UPDATE_PET);
   const userData = data?.getUser || {};
+
+  const [editingPetId, setEditingPetId] = useState(null);
+  const [updatedPetName, setUpdatedPetName] = useState("");
+
   console.log(userData);
 
   const handleDeletePet = async (petId, userId) => {
@@ -21,6 +27,29 @@ const Dashboard = () => {
 
     try {
       await deletePet({ variables: { petId, userId } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleStartEditing = (petId) => {
+    const pet = data.user.pets.find((pet) => pet._id === petId);
+    if (pet) {
+      setEditingPetId(petId);
+      setUpdatedPetName(pet.name);
+    }
+  };
+
+  const handleUpdatePetName = async () => {
+    if (!updatedPetName.trim()) {
+      return;
+    }
+
+    try {
+      await updatePet({
+        variables: { petId: editingPetId, name: updatedPetName },
+      });
+      setEditingPetId(null);
     } catch (error) {
       console.error(error);
     }
@@ -44,12 +73,37 @@ const Dashboard = () => {
                 src={pet.species.image}
                 alt={pet.species.alt}
               />
-              <h3 className="mb-1 text-xl font-medium text-gray-900">
-                {pet.name}
-              </h3>
-              <h4 className="text-sm text-gray-500">
-                {pet.species.speciesType}
-              </h4>
+              <div className="flex items-center">
+                <h3 className="mb-1 text-xl font-medium text-gray-900">
+                  {editingPetId === pet._id ? (
+                    <input
+                      type="text"
+                      value={updatedPetName}
+                      onChange={(e) => setUpdatedPetName(e.target.value)}
+                      onBlur={handleUpdatePetName}
+                    />
+                  ) : (
+                    <>
+                      <div className="flex flex-row">
+                        {pet.name}
+                        <span
+                          onClick={() => handleStartEditing(pet._id)}
+                          className="ml-2 cursor-pointer"
+                        >
+                          <PiPencilThin />
+                        </span>
+                      </div>
+                    </>
+                  )}
+                </h3>
+              </div>
+              <div className="flex flex-row">
+                <PiPawPrintThin />
+
+                <h4 className="text-sm text-gray-500 uppercase">
+                  {pet.species.speciesType}
+                </h4>
+              </div>
               {pet.species.needs.map((need) => (
                 <p key={need._id} className="mt-2">
                   {need.needType}
