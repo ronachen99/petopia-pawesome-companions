@@ -52,7 +52,6 @@ function Nav() {
             </Link>
           </li>
           <li>
-            {/* Use button element for Logout */}
             <button
               onClick={() => Auth.logout()}
               className="text-gray-600 hover:text-blue-500 transition-colors duration-300"

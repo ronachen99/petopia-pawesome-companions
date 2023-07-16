@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { ADD_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
 
 const SignupForm = () => {
   const [addUser] = useMutation(ADD_USER);
@@ -14,7 +15,7 @@ const SignupForm = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("Invalid email addres")
+      .email("Invalid email address")
       .required("Email is required"),
     password: Yup.string()
       .min(5, "Password must be at least 5 characters")
@@ -37,6 +38,8 @@ const SignupForm = () => {
       variables: { email, password },
     });
     console.log(data);
+    Auth.login(data.addUser.token);
+    window.location.href = "/";
   };
 
   return (
