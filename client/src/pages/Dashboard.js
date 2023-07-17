@@ -123,6 +123,17 @@ const Dashboard = () => {
                   {pet.speciesId.speciesType}
                 </h4>
               </div>
+              <div className="flex flex-row">
+                {" "}
+                <p className="text-sm text-gray-500 uppercase"> gender:</p>{" "}
+                {pet.gender}
+              </div>
+              <div className="flex flex-row">
+                {" "}
+                <p className="text-sm text-gray-500 uppercase"> age:</p>{" "}
+                {pet.age}
+              </div>
+              <p className="text-sm text-gray-500 uppercase"> needs:</p>{" "}
               {pet.speciesId.needs.map((need) => (
                 <p key={need._id} className="mt-2">
                   {need.needType}
