@@ -2,48 +2,64 @@ import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER, QUERY_SPECIES } from "../utils/queries";
 import { ADD_PET } from "../utils/mutations";
-import { PiArrowFatLinesLeftDuotone } from "react-icons/pi";
+import { Formik, Field, Form } from "formik";
 
 const Modal = ({ pet, closeModal, handleAdopt }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="bg-gray-400 rounded-lg p-8 w-6/12">
         <h2 className="text-2xl mb-4 font-semibold">
-          Adopt {pet.species.speciesType}
+          Adopt {pet?.species.speciesType}
         </h2>
         <div className="flex justify-center mb-3">
           <img
-            className="flex justify-center mb-3"
-            src={pet.species.image}
-            alt={pet.species.alt}
+            className="flex justify-center mb-3 w-64 h-4/6"
+            src={pet?.species.image}
+            alt={pet?.species.alt}
           />
         </div>
         <p className="mb-2">
           <span className="font-semibold">Species:</span>{" "}
-          {pet.species.speciesType}
+          {pet?.species.speciesType}
         </p>
         <p className="mb-4">
           <span className="font-semibold">Description:</span>{" "}
-          {pet.species.description}
+          {pet?.species.description}
         </p>
-        {pet.species.needs.map((need) => (
+        {pet?.species.needs.map((need) => (
           <p key={need._id} className="mt-2">
             <span className="font-semibold">{need.needType}:</span>{" "}
             {need.description}
           </p>
         ))}
         <div className="flex justify-end mt-4">
+          <Formik
+            initialValues={{
+              Name: "",
+              Age: "",
+            }}
+            onSubmit={async (values) => {
+              await new Promise((r) => setTimeout(r, 500));
+              handleAdopt(pet?.species._id, values);
+              closeModal();
+            }}
+          >
+            <Form>
+              <label htmlFor="Name">Name</label>
+              <Field id="Name" name="Name" placeholder="Jane" />
+              <label htmlFor="Age">Age</label>
+              <Field id="Age" type="number" name="Age" placeholder="0-10" />
+
+              <label htmlFor="Gender">Gender</label>
+              <Field id="Gender" name="Gender" placeholder="M/F" />
+              <button type="submit" className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Adopt</button> 
+            </Form>
+          </Formik>
           <button
             className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded mr-4"
             onClick={closeModal}
           >
             Cancel
-          </button>
-          <button
-            className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
-            onClick={() => handleAdopt(pet.species._id)}
-          >
-            Adopt
           </button>
         </div>
       </div>
@@ -53,36 +69,38 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
 
 const Adoption = () => {
   const { loading: userLoading, data: userData } = useQuery(QUERY_USER);
-  const { loading: speciesLoading, data: speciesData } =
-    useQuery(QUERY_SPECIES);
+  const { loading: speciesLoading, data: speciesData } = useQuery(
+    QUERY_SPECIES
+  );
   const [addPet] = useMutation(ADD_PET);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPet, setSelectedPet] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
 
-  const user = userData?.user;
+  const user = userData?.getUser;
 
-  const handleAdopt = async (speciesID, gender, name, age) => {
+  const handleAdopt = async (speciesId, values) => {
+    const { Name, Gender, Age } = values;
+console.log(values)
+console.log(speciesId)
     try {
-      console.log(handleAdopt);
-      await addPet({ variables: { speciesID, gender, name, age } });
-      console.log("pet Added!");
-      setSuccessMessage((_prevMessage) => "Congratulations on your new pet!");
-      closeModal();
-      console.log("EVERYTHING ENDED");
+      await addPet({
+        variables: { speciesId, gender: Gender, name: Name, age: Age },
+      });
+      setSuccessMessage("Congratulations on your new pet!");
     } catch (error) {
       console.error(error);
     }
   };
 
   const openModal = (pet) => {
-    setSelectedPet((prevPet) => pet);
-    setModalOpen((prevStatus) => true);
+    setSelectedPet(pet);
+    setModalOpen(true);
   };
 
   const closeModal = () => {
-    setSelectedPet((prevPet) => null);
-    setModalOpen((prevStatus) => false);
+    setSelectedPet(null);
+    setModalOpen(false);
   };
 
   if (userLoading || speciesLoading) {
