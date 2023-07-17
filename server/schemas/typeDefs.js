@@ -1,5 +1,8 @@
+// imports the gql function from the appollo server express pacakge
 const { gql } = require("apollo-server-express");
 
+// defines the schema using the GraphQL schema language
+// the schema describes the types, queries, mutations, and inputs available in the GraphQL api
 const typeDefs = gql`
   type User {
     _id: ID

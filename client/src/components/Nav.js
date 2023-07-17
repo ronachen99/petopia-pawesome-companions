@@ -1,6 +1,10 @@
+// imports the necessary dependencies
 import React from "react";
+// for authenticating whether the user is logged in or not
 import Auth from "../utils/auth";
+// import uselocation to see which path is the user on
 import { Link, useLocation } from "react-router-dom";
+// import icons
 import {
   PiUserCircleThin,
   PiUserCirclePlusThin,
@@ -10,15 +14,19 @@ import {
   PiSignOutThin,
 } from "react-icons/pi";
 
+// functional component for nav
 function Nav() {
+  // set a variable for the function
   const location = useLocation();
 
   function showNavigation() {
+    // if the user is logged in, show this nav
     if (Auth.loggedIn()) {
       return (
         <ul className="flex flex-col items-start">
           <li
             className={
+              // check for path, set different colour for active or inactive page
               location.pathname === "/" || location.pathname.startsWith("/home")
                 ? "text-blue-500"
                 : "text-gray-600"
@@ -51,6 +59,7 @@ function Nav() {
             </Link>
           </li>
           <li>
+            {/* once the user clicks on the logout button, it calls the logout function defined in the auth.js */}
             <button onClick={() => Auth.logout()} className="icon">
               <PiSignOutThin size={28} />
             </button>
@@ -58,6 +67,7 @@ function Nav() {
         </ul>
       );
     } else {
+      // if the user is not logged in, show this nav
       return (
         <ul className="flex flex-col items-start">
           <li
