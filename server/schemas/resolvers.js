@@ -18,7 +18,7 @@ const resolvers = {
           path: "pets",
           // populates the species data in each pet
           populate: {
-            path: "species",
+            path: "speciesId",
             // populate needs data within the species object
             populate: {
               path: "needs",
@@ -72,30 +72,31 @@ const resolvers = {
       return { token, user };
     },
     // addPet mutation logic
-    addPet: async (parent, { name, speciesID, age, gender }, context) => {
+    addPet: async (parent, { name, speciesId, age, gender }, context) => {
       if (context.user) {
         try {
-          console.log({ name, speciesID, age, gender });
+          console.log({ name, speciesId, age, gender });
           // create the new pet
           const pet = await Pet.create({
             name,
-            species: speciesID,
+            speciesId: speciesId,
             age,
             gender,
             owner: context.user._id,
           });
 
           // update the user's pets array
-          await User.findByIdAndUpdate(context.user._id, { $push: { pets: pet._id } });
+          await User.findByIdAndUpdate(context.user._id, {
+            $push: { pets: pet._id },
+          });
           return Pet.findOne({ _id: pet._id })
             .populate("owner")
             .populate({
-              path: "species",
+              path: "speciesId",
               populate: {
                 path: "needs",
               },
             });
-
         } catch (error) {
           console.log(error);
         }
@@ -113,7 +114,7 @@ const resolvers = {
           return Pet.findOne({ _id: petID })
             .populate("owner")
             .populate({
-              path: "species",
+              path: "speciesId",
               populate: {
                 path: "needs",
               },

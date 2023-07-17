@@ -134,41 +134,41 @@ db.once("open", async () => {
         name: "Buddy",
         age: 2,
         gender: "Male",
-        species: "Dog",
+        speciesId: "Dog",
         owner: user1._id,
       },
       {
         name: "Whiskers",
         age: 4,
         gender: "Female",
-        species: "Cat",
+        speciesId: "Cat",
         owner: user1._id,
       },
       {
         name: "Sparky",
         age: 3,
         gender: "Male",
-        species: "Dog",
+        speciesId: "Dog",
         owner: user2._id,
       },
       {
         name: "Fluffy",
         age: 5,
         gender: "Female",
-        species: "Cat",
+        speciesId: "Cat",
         owner: user2._id,
       },
     ];
 
     // defines a promise that waits for all the promises within the array is settled then execute
     const petsPromises = petsData.map(async (petData) => {
-      const species = await Species.findOne({ speciesType: petData.species });
+      const species = await Species.findOne({ speciesType: petData.speciesId });
 
       const pet = await Pet.create({
         name: petData.name,
         age: petData.age,
         gender: petData.gender,
-        species: species._id,
+        speciesId: species._id,
         owner: petData.owner,
       });
 

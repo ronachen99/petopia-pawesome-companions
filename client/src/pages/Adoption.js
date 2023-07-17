@@ -2,34 +2,64 @@ import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER, QUERY_SPECIES } from "../utils/queries";
 import { ADD_PET } from "../utils/mutations";
-import { PiArrowFatLinesLeftDuotone } from "react-icons/pi";
+import { Formik, Field, Form } from "formik";
 
 const Modal = ({ pet, closeModal, handleAdopt }) => {
   return (
-    
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-8 w-96 h-96">
-        <h2 className="text-2xl mb-4">Adopt {pet.species.speciesType}</h2>
-        <img
-          className="w-24 h-24 mb-3 rounded-full shadow-lg"
-          src={pet.species.image}
-          alt={pet.species.alt}
-        />
-        <p>Species: {pet.species.speciesType}</p>
-        <p>Description: {pet.species.description}</p>
-        
-        <div className="flex justify-end mt-8">
+      <div className="bg-gray-400 rounded-lg p-8 w-6/12">
+        <h2 className="text-2xl mb-4 font-semibold">
+          Adopt {pet?.species.speciesType}
+        </h2>
+        <div className="flex justify-center mb-3">
+          <img
+            className="flex justify-center mb-3 w-64 h-4/6"
+            src={pet?.species.image}
+            alt={pet?.species.alt}
+          />
+        </div>
+        <p className="mb-2">
+          <span className="font-semibold">Species:</span>{" "}
+          {pet?.species.speciesType}
+        </p>
+        <p className="mb-4">
+          <span className="font-semibold">Description:</span>{" "}
+          {pet?.species.description}
+        </p>
+        {pet?.species.needs.map((need) => (
+          <p key={need._id} className="mt-2">
+            <span className="font-semibold">{need.needType}:</span>{" "}
+            {need.description}
+          </p>
+        ))}
+        <div className="flex justify-end mt-4">
+          <Formik
+            initialValues={{
+              Name: "",
+              Age: "",
+            }}
+            onSubmit={async (values) => {
+              await new Promise((r) => setTimeout(r, 500));
+              handleAdopt(pet?.species._id, values);
+              closeModal();
+            }}
+          >
+            <Form>
+              <label htmlFor="Name">Name</label>
+              <Field id="Name" name="Name" placeholder="Jane" />
+              <label htmlFor="Age">Age</label>
+              <Field id="Age" type="number" name="Age" placeholder="0-10" />
+
+              <label htmlFor="Gender">Gender</label>
+              <Field id="Gender" name="Gender" placeholder="M/F" />
+              <button type="submit" className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">Adopt</button> 
+            </Form>
+          </Formik>
           <button
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mr-4"
+            className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded mr-4"
             onClick={closeModal}
           >
-            Close
-          </button>
-          <button
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-            onClick={() => handleAdopt(pet.species._id)}
-          >
-            Adopt
+            Cancel
           </button>
         </div>
       </div>
@@ -39,35 +69,38 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
 
 const Adoption = () => {
   const { loading: userLoading, data: userData } = useQuery(QUERY_USER);
-  const { loading: speciesLoading, data: speciesData } = useQuery(QUERY_SPECIES);
+  const { loading: speciesLoading, data: speciesData } = useQuery(
+    QUERY_SPECIES
+  );
   const [addPet] = useMutation(ADD_PET);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPet, setSelectedPet] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
 
-  const user = userData?.user;
+  const user = userData?.getUser;
 
-  const handleAdopt = async (speciesID, gender, name, age) => {
+  const handleAdopt = async (speciesId, values) => {
+    const { Name, Gender, Age } = values;
+console.log(values)
+console.log(speciesId)
     try {
-      console.log(handleAdopt)
-      await addPet({ variables: { speciesID, gender, name, age } });
-      console.log("pet Added!")
-      setSuccessMessage(_prevMessage => "Congratulations on your new pet!");
-      closeModal();
-      console.log("EVERYTHING ENDED")
+      await addPet({
+        variables: { speciesId, gender: Gender, name: Name, age: Age },
+      });
+      setSuccessMessage("Congratulations on your new pet!");
     } catch (error) {
       console.error(error);
     }
   };
 
   const openModal = (pet) => {
-    setSelectedPet( prevPet =>pet);
-    setModalOpen(prevStatus =>true);
+    setSelectedPet(pet);
+    setModalOpen(true);
   };
 
   const closeModal = () => {
-    setSelectedPet( prevPet =>null);
-    setModalOpen(prevStatus =>false);
+    setSelectedPet(null);
+    setModalOpen(false);
   };
 
   if (userLoading || speciesLoading) {
@@ -76,25 +109,27 @@ const Adoption = () => {
 
   return (
     <div className="flex flex-col justify-center min-h-screen">
-    <div className="flex flex-wrap justify-center">
-    <div className="flex">
-      {speciesData.species.map((species) => (
-        <div className="flex-auto" key={species._id}>
-          <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <div className="flex justify-end px-4 pt-4"></div>
-            <div className="flex flex-col items-center pb-10">
+      <div className="flex flex-wrap justify-center">
+        {speciesData.species.map((species) => (
+          <div
+            className="m-2 w-full max-w-sm bg-white border rounded-lg"
+            key={species._id}
+          >
+            <div className="flex flex-col items-center pt-6 pb-4">
               <img
-                className="w-24 h-24 mb-3 rounded-full shadow-lg"
+                className="w-24 h-24 mt-2 mb-1 rounded-full shadow-lg"
                 src={species.image}
                 alt={species.alt}
               />
-              <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+              <h3 className="mb-1 text-xl font-medium text-gray-900">
                 {species.speciesType}
-              </h5>
-              <p>{species.description}</p>
+              </h3>
+              <h4 className="text-sm text-gray-500 uppercase">
+                {species.description}
+              </h4>
               <div className="flex mt-4 space-x-3 md:mt-6">
                 <button
-                  className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="mt-4 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:ring-4"
                   onClick={() => openModal({ species })}
                 >
                   Adopt
@@ -102,25 +137,20 @@ const Adoption = () => {
               </div>
             </div>
           </div>
-        </div>
-        
+        ))}
 
-      ))}
-    
+        {modalOpen && (
+          <Modal
+            pet={selectedPet}
+            closeModal={closeModal}
+            handleAdopt={handleAdopt}
+          />
+        )}
 
-      {modalOpen && (
-        <Modal
-          pet={selectedPet}
-          closeModal={closeModal}
-          handleAdopt={handleAdopt}
-        />
-      )}
-
-      {successMessage && (
-        <div className="mt-4 text-green-500">{successMessage}</div>
-      )}
-    </div>
-    </div>
+        {successMessage && (
+          <div className="mt-4 text-green-500">{successMessage}</div>
+        )}
+      </div>
     </div>
   );
 };
