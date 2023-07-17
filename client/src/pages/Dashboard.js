@@ -9,7 +9,13 @@ import { DELETE_PET, UPDATE_PET } from "../utils/mutations";
 // authentication
 import Auth from "../utils/auth";
 // icons
-import { PiPawPrintThin, PiPencilThin } from "react-icons/pi";
+import {
+  PiPawPrintThin,
+  PiPencilThin,
+  PiGenderIntersexThin,
+  PiCakeThin,
+  PiDropThin,
+} from "react-icons/pi";
 
 // functional componenet
 const Dashboard = () => {
@@ -26,6 +32,7 @@ const Dashboard = () => {
   // use state hook to modify the state of editingPetId and updatedPetName
   const [editingPetId, setEditingPetId] = useState(null);
   const [updatedPetName, setUpdatedPetName] = useState("");
+  const [isPencilClicked, setPencilClicked] = useState(false);
 
   // handles the deletion of the peet, taking in the petId and userId and calls the deletePet mutation function
   const handleDeletePet = async (petId, userId) => {
@@ -39,6 +46,7 @@ const Dashboard = () => {
 
     try {
       await deletePet({ variables: { petId, userId } });
+      setPencilClicked(false);
     } catch (error) {
       console.error(error);
     }
@@ -52,6 +60,7 @@ const Dashboard = () => {
     if (pet) {
       setEditingPetId(petId);
       setUpdatedPetName(pet.name);
+      setPencilClicked(true);
     }
   };
 
@@ -69,6 +78,7 @@ const Dashboard = () => {
       });
       // reset the id state to null
       setEditingPetId(null);
+      setPencilClicked(false);
     } catch (error) {
       console.error(error);
     }
@@ -93,9 +103,10 @@ const Dashboard = () => {
                 alt={pet.speciesId.alt}
               />
               <div className="flex items-center">
-                <h3 className="mb-1 text-xl font-medium text-gray-900">
+                <h3 className="mb-1 text-xl font-medium text-zinc-900">
                   {editingPetId === pet._id ? (
                     <input
+                      className="text-white text-center rounded"
                       type="text"
                       value={updatedPetName}
                       onChange={(e) => setUpdatedPetName(e.target.value)}
@@ -103,7 +114,7 @@ const Dashboard = () => {
                     />
                   ) : (
                     <>
-                      <div className="flex flex-row">
+                      <div className="flex">
                         {pet.name}
                         <span
                           onClick={() => handleStartEditing(pet._id)}
@@ -116,24 +127,45 @@ const Dashboard = () => {
                   )}
                 </h3>
               </div>
-              <div className="flex flex-row">
-                <PiPawPrintThin />
-
-                <h4 className="text-sm text-gray-500 uppercase">
-                  {pet.speciesId.speciesType}
-                </h4>
-              </div>
-              {pet.speciesId.needs.map((need) => (
-                <p key={need._id} className="mt-2">
-                  {need.needType}
-                </p>
-              ))}
-              <button
-                onClick={() => handleDeletePet(pet._id, data.user._id)}
-                className="mt-4 px-4 py-2 text-sm font-medium text-white bg-red-500 rounded hover:bg-red-600"
+              <div
+                className="flex tooltip uppercase tooltip-right tooltip-primary"
+                data-tip={"species: " + pet.speciesId.speciesType}
               >
-                Delete
-              </button>
+                <PiPawPrintThin size={28} className="text-black" />
+              </div>
+              <div
+                className="flex tooltip uppercase tooltip-right tooltip-secondary"
+                data-tip={"gender: " + pet.gender}
+              >
+                <PiGenderIntersexThin size={28} className="text-black" />
+              </div>
+              <div
+                className="flex tooltip uppercase tooltip-right tooltip-accent"
+                data-tip={"age: " + pet.age}
+              >
+                <PiCakeThin size={28} className="text-black" />
+              </div>
+
+              <div
+                className="tooltip uppercase tooltip-right tooltip-error"
+                data-tip={
+                  "needs: " +
+                  pet.speciesId.needs
+                    .map((need) => need.needType)
+                    .toString()
+                    .replaceAll(",", ", ")
+                }
+              >
+                <PiDropThin size={28} className="text-black" />
+              </div>
+              {isPencilClicked && (
+                <button
+                  onClick={() => handleDeletePet(pet._id, data.user._id)}
+                  className="mt-4 px-4 py-2 text-sm font-medium text-white bg-red-500 rounded hover:bg-red-600"
+                >
+                  Abandon
+                </button>
+              )}
             </div>
           </div>
         ))}

@@ -66,19 +66,19 @@ const SignupForm = () => {
         {({ isValid, isSubmitting }) => (
           <div className="relative mx-6 md:mx-auto w-full md:w-1/2 lg:w-1/3">
             <div className="shadow-lg bg-white rounded-lg p-8">
-              <h1 className="text-center text-2xl">Sign Up</h1>
+              <h1 className="text-center text-2xl text-black ">Sign Up</h1>
 
               <Form className="pt-6 pb-2 my-2">
                 {formFields.map((field, index) => (
                   <div className="mb-4" key={index}>
                     <label
-                      className="block text-sm font-bold mb-2"
+                      className="block text-sm text-black mb-2"
                       htmlFor={field.name}
                     >
                       {field.label}
                     </label>
                     <Field
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
                       type={field.type}
                       id={field.name}
                       name={field.name}
@@ -93,7 +93,7 @@ const SignupForm = () => {
 
                 <div className="flex justify-end">
                   <button
-                    className={`bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded border-b-4 border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent ${
+                    className={`bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded border-b-4 border-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent ${
                       isValid && !isSubmitting
                         ? "cursor-pointer"
                         : "cursor-not-allowed opacity-50"
