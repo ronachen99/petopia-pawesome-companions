@@ -5,6 +5,7 @@ import { ADD_PET } from "../utils/mutations";
 import { PiArrowFatLinesLeftDuotone } from "react-icons/pi";
 
 const Modal = ({ pet, closeModal, handleAdopt }) => {
+  console.log(pet);
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="bg-gray-400 rounded-lg p-8 w-6/12">
