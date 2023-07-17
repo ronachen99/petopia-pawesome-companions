@@ -7,25 +7,40 @@ import { PiArrowFatLinesLeftDuotone } from "react-icons/pi";
 const Modal = ({ pet, closeModal, handleAdopt }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-8 w-96 h-96">
-        <h2 className="text-2xl mb-4">Adopt {pet.species.speciesType}</h2>
-        <img
-          className="w-24 h-24 mb-3 rounded-full shadow-lg"
-          src={pet.species.image}
-          alt={pet.species.alt}
-        />
-        <p>Species: {pet.species.speciesType}</p>
-        <p>Description: {pet.species.description}</p>
-
-        <div className="flex justify-end mt-8">
+      <div className="bg-gray-400 rounded-lg p-8 w-6/12">
+        <h2 className="text-2xl mb-4 font-semibold">
+          Adopt {pet.species.speciesType}
+        </h2>
+        <div className="flex justify-center mb-3">
+          <img
+            className="flex justify-center mb-3"
+            src={pet.species.image}
+            alt={pet.species.alt}
+          />
+        </div>
+        <p className="mb-2">
+          <span className="font-semibold">Species:</span>{" "}
+          {pet.species.speciesType}
+        </p>
+        <p className="mb-4">
+          <span className="font-semibold">Description:</span>{" "}
+          {pet.species.description}
+        </p>
+        {pet.species.needs.map((need) => (
+          <p key={need._id} className="mt-2">
+            <span className="font-semibold">{need.needType}:</span>{" "}
+            {need.description}
+          </p>
+        ))}
+        <div className="flex justify-end mt-4">
           <button
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mr-4"
+            className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded mr-4"
             onClick={closeModal}
           >
-            Close
+            Cancel
           </button>
           <button
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+            className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
             onClick={() => handleAdopt(pet.species._id)}
           >
             Adopt
@@ -88,13 +103,15 @@ const Adoption = () => {
                 src={species.image}
                 alt={species.alt}
               />
-              <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+              <h3 className="mb-1 text-xl font-medium text-gray-900">
                 {species.speciesType}
-              </h5>
-              <p>{species.description}</p>
+              </h3>
+              <h4 className="text-sm text-gray-500 uppercase">
+                {species.description}
+              </h4>
               <div className="flex mt-4 space-x-3 md:mt-6">
                 <button
-                  className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="mt-4 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:ring-4"
                   onClick={() => openModal({ species })}
                 >
                   Adopt
