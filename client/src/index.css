@@ -3,10 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* allow the enlarging of the icons when hovered */
 .icon:hover {
     transform: scale(1.1);
 }
 
+/* background image of the app */
 body {
     background-image: url("../public/images/astronaut.jpg");
     background-size: cover;
@@ -14,11 +16,13 @@ body {
     background-position: center;
 }
 
+/* sets bg colour for the header and footer */
 header,
 footer {
     background-color: #070506;
 }
 
+/* make the universal font using the imported Google font */
 * {
     font-family: 'Space Mono', monospace;
 }

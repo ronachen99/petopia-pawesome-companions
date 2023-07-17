@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
 
+// simple header that will be imported to the app componenet
 const Header = () => {
   return (
     <header className="py-4">

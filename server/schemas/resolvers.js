@@ -1,15 +1,25 @@
+// require authenticationerror class which is used to throw errors when an user is not authenticated
 const { AuthenticationError } = require("apollo-server-express");
+// imports the models that was defined with the Mongoose schema
 const { User, Pet, Species, Need } = require("../models");
+// used to sign a JWT for authentication purposes
 const { signToken } = require("../utils/auth");
 
+// resolver object responsible for queries and mutations defined in the GraphQL APIs (typeDefs)
 const resolvers = {
+  // the fetching of the data
   Query: {
+    // retrieves information about a user
     user: async (parent, args, context) => {
       if (context.user) {
+        // the context handles authentication and carry the JWT for authenticated request
         const user = await User.findById(context.user._id).populate({
+          // populates the pets array in user
           path: "pets",
+          // populates the species data in each pet
           populate: {
             path: "species",
+            // populate needs data within the species object
             populate: {
               path: "needs",
             },
@@ -20,10 +30,12 @@ const resolvers = {
       }
       throw new AuthenticationError("Not logged in");
     },
+    // retrieves information of all available species
     species: async () => {
       return await Species.find().populate("needs");
     },
   },
+  // changes to the data
   Mutation: {
     // addUser mutation logic
     addUser: async (parent, args) => {
@@ -33,6 +45,7 @@ const resolvers = {
         const user = await User.create(args);
         const token = signToken(user);
 
+        // generate token once logged in
         return { token, user };
       } catch (error) {
         console.log(error);
@@ -42,15 +55,18 @@ const resolvers = {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
+        // if email does not match throw error
         throw new AuthenticationError("Incorrect credentials");
       }
-
+      // check for password
       const correctPw = await user.isCorrectPassword(password);
 
+      // if password does not match throw error
       if (!correctPw) {
         throw new AuthenticationError("Incorrect credentials");
       }
 
+      // generate token once logged in
       const token = signToken(user);
 
       return { token, user };
@@ -71,14 +87,18 @@ const resolvers = {
 
           // update the user's pets array
           await User.findByIdAndUpdate(owner, { $push: { pets: pet._id } });
-          return Pet.findOne({ _id: pet._id })
-            .populate("owner")
-            .populate({
-              path: "species",
-              populate: {
-                path: "needs",
-              },
-            });
+          return (
+            Pet.findOne({ _id: pet._id })
+              // populate the owner data in the pet object
+              .populate("owner")
+              // also populate the species object with needs in the pet object
+              .populate({
+                path: "species",
+                populate: {
+                  path: "needs",
+                },
+              })
+          );
         } catch (error) {
           console.log(error);
         }
@@ -92,7 +112,7 @@ const resolvers = {
           console.log({ petID, name });
           // find the pet by ID and update its name
           await Pet.findByIdAndUpdate(petID, { name }, { new: true });
-
+          // return the update pet object
           return Pet.findOne({ _id: petID })
             .populate("owner")
             .populate({
@@ -112,9 +132,9 @@ const resolvers = {
       if (context.user) {
         try {
           console.log({ petID, userID });
-          // find the pet by ID and owner
+          // find the pet by pet id and user id and delete it
           const pet = await Pet.findOneAndDelete({ _id: petID, owner: userID });
-
+          // if no pet is found using the id then throw error
           if (!pet) {
             throw new Error("Pet not found or you are not the owner.");
           }
@@ -136,7 +156,7 @@ const resolvers = {
       { speciesType, description, needs, image, alt }
     ) => {
       try {
-        // Create the new species
+        // create the new species
         const species = await Species.create({
           speciesType,
           description,
@@ -148,6 +168,7 @@ const resolvers = {
         if (needs && needs.length > 0) {
           const createdNeeds = await Need.insertMany(needs);
           console.log(createdNeeds);
+          // insert the needs into the found species
           await Species.updateOne(
             { _id: species._id },
             { $addToSet: { needs: { $each: createdNeeds } } }

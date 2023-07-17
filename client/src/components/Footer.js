@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
 
+// simple footer that will be imported to the app componenet
 const Footer = () => {
   return (
     <footer className="py-2">

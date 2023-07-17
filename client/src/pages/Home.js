@@ -1,5 +1,6 @@
 import React from "react";
 
+// short introduction in the landing page
 const Home = () => {
   return (
     <div className="flex flex-col min-h-screen">

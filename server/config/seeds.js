@@ -1,6 +1,9 @@
+// first connect to the database
 const db = require("./connection");
+// import the models for seeding
 const { User, Pet, Species, Need } = require("../models");
 
+// once connected then...
 db.once("open", async () => {
   try {
     // delete existing data
@@ -101,8 +104,10 @@ db.once("open", async () => {
         ],
       },
     ];
-
+    // create an array of promises for creating species
+    // map through the species data
     const speciesPromises = speciesData.map(async (species) => {
+      // each species is created,  but wait for needs
       const createdSpecies = await Species.create({
         speciesType: species.speciesType,
         description: species.description,
@@ -110,13 +115,17 @@ db.once("open", async () => {
         alt: species.alt,
       });
 
+      // needs inserted into species obj
       const needs = await Need.insertMany(species.needs);
 
+      // push into the species by need id (this was defined the resolvers)
       await Species.findByIdAndUpdate(createdSpecies._id, {
+        // add it to the set using each newly createed id
         $addToSet: { needs: { $each: needs.map((need) => need._id) } },
       });
     });
 
+    // wait until all promises in the species promises array is settled then execute
     await Promise.all(speciesPromises);
 
     // create pets for each sample user
@@ -151,6 +160,7 @@ db.once("open", async () => {
       },
     ];
 
+    // defines a promise that waits for all the promises within the array is settled then execute
     const petsPromises = petsData.map(async (petData) => {
       const species = await Species.findOne({ speciesType: petData.species });
 
@@ -166,11 +176,11 @@ db.once("open", async () => {
     });
 
     await Promise.all(petsPromises);
-
+    // once completed seeding, it exits the node.js process
     console.log("Database seeded successfully!");
-    process.exit(0);
+    process.exit();
   } catch (error) {
     console.error("Error seeding the database:", error);
-    process.exit(1);
+    process.exit();
   }
 });

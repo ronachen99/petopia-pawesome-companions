@@ -1,19 +1,28 @@
+// import the necessary dependencies
 import React, { useState } from "react";
+// import form library
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+// import mutation functions
 import { LOGIN } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
+// for authentication
 import Auth from "../utils/auth";
 
+// a functional component for login
 const LoginForm = () => {
+  // useMutation hook executs the LOGIN mutation and the resulting mutation function is destructured into login
   const [login] = useMutation(LOGIN);
+  // set the initial state for the error message
   const [errorMessage, setErrorMessage] = useState(null);
 
+  // predefined the form fields to be dynamically populated later
   const formFields = [
     { label: "Email", name: "email", type: "email" },
     { label: "Password", name: "password", type: "password" },
   ];
 
+  // predefined the form validations to be dynamically populated later
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email address.")
@@ -21,23 +30,30 @@ const LoginForm = () => {
     password: Yup.string().required("Password is required."),
   });
 
+  // predefined the initial values
   const initialValues = {
     email: "",
     password: "",
   };
 
+  // handle submission of the form, takes in the userValues as an object
   const handleSubmit = async (userValues) => {
     console.log(userValues);
+    // destructure into email and password
     const { email, password } = userValues;
     try {
+      // use the login mutation to login
       const { data } = await login({
         variables: { email, password },
       });
       console.log(data);
+      // once logged in, a token is generated
       Auth.login(data.login.token);
+      // user is redired back to home
       window.location.href = "/";
     } catch (err) {
-      setErrorMessage("Incorrect credentials. Please try again.");
+      // else send an error message for invalid credentials
+      setErrorMessage("Wrong password or email. Please try again.");
     }
   };
 
