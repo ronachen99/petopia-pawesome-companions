@@ -28,8 +28,8 @@ function Nav() {
             className={
               // check for path, set different colour for active or inactive page
               location.pathname === "/" || location.pathname.startsWith("/home")
-                ? "text-blue-500"
-                : "text-gray-600"
+                ? "text-purple-500"
+                : "text-zinc-600"
             }
           >
             <Link to="/" className="transition-transform">
@@ -39,8 +39,8 @@ function Nav() {
           <li
             className={
               location.pathname.startsWith("/dashboard")
-                ? "text-blue-500"
-                : "text-gray-600"
+                ? "text-purple-500"
+                : "text-zinc-600"
             }
           >
             <Link to="/dashboard" className="transition-transform">
@@ -50,8 +50,8 @@ function Nav() {
           <li
             className={
               location.pathname.startsWith("/adoption")
-                ? "text-blue-500"
-                : "text-gray-600"
+                ? "text-purple-500"
+                : "text-zinc-600"
             }
           >
             <Link to="/adoption" className="transition-transform">
@@ -60,8 +60,11 @@ function Nav() {
           </li>
           <li>
             {/* once the user clicks on the logout button, it calls the logout function defined in the auth.js */}
-            <button onClick={() => Auth.logout()} className="icon">
-              <PiSignOutThin size={28} />
+            <button
+              onClick={() => Auth.logout()}
+              className="transition-transform text-zinc-600"
+            >
+              <PiSignOutThin size={28} className="icon" />
             </button>
           </li>
         </ul>
@@ -72,7 +75,7 @@ function Nav() {
         <ul className="flex flex-col items-start">
           <li
             className={
-              location.pathname === "/" ? "text-blue-500" : "text-gray-600"
+              location.pathname === "/" ? "text-purple-500" : "text-zinc-600"
             }
           >
             <Link to="/" className="transition-transform">
@@ -82,8 +85,8 @@ function Nav() {
           <li
             className={
               location.pathname.startsWith("/login")
-                ? "text-blue-500"
-                : "text-gray-600"
+                ? "text-purple-500"
+                : "text-zinc-600"
             }
           >
             <Link to="/login" className="transition-transform">
@@ -93,8 +96,8 @@ function Nav() {
           <li
             className={
               location.pathname.startsWith("/signup")
-                ? "text-blue-500"
-                : "text-gray-600"
+                ? "text-purple-500"
+                : "text-zinc-600"
             }
           >
             <Link to="/signup" className="transition-transform">

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_SPECIES } from "../utils/queries";
+import { QUERY_SPECIES, QUERY_USER } from "../utils/queries";
 import { ADD_PET } from "../utils/mutations";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -15,8 +15,8 @@ const petValidationSchema = Yup.object({
 
 const Modal = ({ pet, closeModal, handleAdopt }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-gray-400 rounded-lg p-8 w-6/12">
+    <div className="fixed inset-0 flex items-center justify-center z-50 text-white">
+      <div className="bg-zinc-800 rounded-lg p-8 w-6/12">
         <h2 className="text-2xl mb-4 font-semibold">
           Adopt {pet?.species.speciesType}
         </h2>
@@ -60,7 +60,7 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
               <Field
                 id="Name"
                 name="Name"
-                className="w-full px-3 py-1 rounded"
+                className="w-full px-3 py-1 rounded bg-white text-black "
               />
               <ErrorMessage
                 name="Name"
@@ -73,7 +73,7 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
                 type="number"
                 name="Age"
                 min="0"
-                className="w-full px-3 py-1 rounded"
+                className="w-full px-3 py-1 rounded bg-white text-black"
               />
               <ErrorMessage
                 name="Age"
@@ -85,7 +85,7 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
                 as="select"
                 id="Gender"
                 name="Gender"
-                className="w-full px-3 py-1 rounded"
+                className="w-full px-3 py-1 rounded bg-white text-black"
               >
                 <option value="">Choose Gender</option>
                 <option value="Female">Female</option>
@@ -104,7 +104,7 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
                   Adopt
                 </button>
                 <button
-                  className="flex-grow bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded"
+                  className="flex-grow bg-zinc-500 hover:bg-zinc-600 text-white px-3 py-1 rounded"
                   onClick={closeModal}
                 >
                   Cancel
@@ -122,14 +122,14 @@ const CongratulationsModal = ({ closeModal }) => {
   React.useEffect(() => {
     const timeout = setTimeout(() => {
       closeModal();
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(timeout);
   }, [closeModal]);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-gray-400 rounded-lg p-8 w-6/12">
+      <div className="bg-zinc-800 rounded-lg p-8 w-6/12">
         <h2 className="text-2xl mb-4 font-semibold">Congratulations!</h2>
         <p className="text-lg text-center">
           You have successfully adopted a new pet.
@@ -154,6 +154,7 @@ const Adoption = () => {
     try {
       await addPet({
         variables: { speciesId, gender: Gender, name: Name, age: Age },
+        refetchQueries: [{ query: QUERY_USER }],
       });
       setSuccessMessage("Congratulations on your new pet!");
       setModalOpen(false);
@@ -190,15 +191,15 @@ const Adoption = () => {
                 src={species.image}
                 alt={species.alt}
               />
-              <h3 className="mb-1 text-xl font-medium text-gray-900">
+              <h3 className="mb-1 text-xl font-medium text-zinc-900">
                 {species.speciesType}
               </h3>
-              <h4 className="text-sm text-gray-500 uppercase">
+              <h4 className="text-sm text-zinc-500 uppercase">
                 {species.description}
               </h4>
               <div className="flex mt-4 space-x-3 md:mt-6">
                 <button
-                  className="mt-4 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:ring-4"
+                  className="mt-4 px-4 py-2 text-sm font-medium text-white bg-purple-700 rounded hover:bg-purple-800 focus:ring-4"
                   onClick={() => openModal({ species })}
                 >
                   Adopt

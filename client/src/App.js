@@ -10,13 +10,14 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Adoption from "./pages/Adoption";
+import Ditto from "./components/Ditto";
 
 // App defined as the root component
 function App() {
   return (
     // router provides routing functionality
     <Router>
-      <div>
+      <div className="relative">
         {/* header rendered at the top */}
         <Header />
         {/* defines the routes in the app */}
@@ -32,6 +33,9 @@ function App() {
         <Nav />
         {/* footer rendered at the bottom */}
         <Footer />
+        <div className="fixed bottom-0 right-5">
+          <Ditto />
+        </div>
       </div>
     </Router>
   );
