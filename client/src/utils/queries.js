@@ -10,7 +10,7 @@ export const QUERY_USER = gql`
         name
         age
         gender
-        species {
+        speciesId {
           _id
           speciesType
           description

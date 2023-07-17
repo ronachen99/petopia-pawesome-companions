@@ -6,7 +6,6 @@ import { PiArrowFatLinesLeftDuotone } from "react-icons/pi";
 
 const Modal = ({ pet, closeModal, handleAdopt }) => {
   return (
-    
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-8 w-96 h-96">
         <h2 className="text-2xl mb-4">Adopt {pet.species.speciesType}</h2>
@@ -17,7 +16,7 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
         />
         <p>Species: {pet.species.speciesType}</p>
         <p>Description: {pet.species.description}</p>
-        
+
         <div className="flex justify-end mt-8">
           <button
             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mr-4"
@@ -39,7 +38,8 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
 
 const Adoption = () => {
   const { loading: userLoading, data: userData } = useQuery(QUERY_USER);
-  const { loading: speciesLoading, data: speciesData } = useQuery(QUERY_SPECIES);
+  const { loading: speciesLoading, data: speciesData } =
+    useQuery(QUERY_SPECIES);
   const [addPet] = useMutation(ADD_PET);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPet, setSelectedPet] = useState(null);
@@ -49,25 +49,25 @@ const Adoption = () => {
 
   const handleAdopt = async (speciesID, gender, name, age) => {
     try {
-      console.log(handleAdopt)
+      console.log(handleAdopt);
       await addPet({ variables: { speciesID, gender, name, age } });
-      console.log("pet Added!")
-      setSuccessMessage(_prevMessage => "Congratulations on your new pet!");
+      console.log("pet Added!");
+      setSuccessMessage((_prevMessage) => "Congratulations on your new pet!");
       closeModal();
-      console.log("EVERYTHING ENDED")
+      console.log("EVERYTHING ENDED");
     } catch (error) {
       console.error(error);
     }
   };
 
   const openModal = (pet) => {
-    setSelectedPet( prevPet =>pet);
-    setModalOpen(prevStatus =>true);
+    setSelectedPet((prevPet) => pet);
+    setModalOpen((prevStatus) => true);
   };
 
   const closeModal = () => {
-    setSelectedPet( prevPet =>null);
-    setModalOpen(prevStatus =>false);
+    setSelectedPet((prevPet) => null);
+    setModalOpen((prevStatus) => false);
   };
 
   if (userLoading || speciesLoading) {
@@ -76,15 +76,15 @@ const Adoption = () => {
 
   return (
     <div className="flex flex-col justify-center min-h-screen">
-    <div className="flex flex-wrap justify-center">
-    <div className="flex">
-      {speciesData.species.map((species) => (
-        <div className="flex-auto" key={species._id}>
-          <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <div className="flex justify-end px-4 pt-4"></div>
-            <div className="flex flex-col items-center pb-10">
+      <div className="flex flex-wrap justify-center">
+        {speciesData.species.map((species) => (
+          <div
+            className="m-2 w-full max-w-sm bg-white border rounded-lg"
+            key={species._id}
+          >
+            <div className="flex flex-col items-center pt-6 pb-4">
               <img
-                className="w-24 h-24 mb-3 rounded-full shadow-lg"
+                className="w-24 h-24 mt-2 mb-1 rounded-full shadow-lg"
                 src={species.image}
                 alt={species.alt}
               />
@@ -102,25 +102,20 @@ const Adoption = () => {
               </div>
             </div>
           </div>
-        </div>
-        
+        ))}
 
-      ))}
-    
+        {modalOpen && (
+          <Modal
+            pet={selectedPet}
+            closeModal={closeModal}
+            handleAdopt={handleAdopt}
+          />
+        )}
 
-      {modalOpen && (
-        <Modal
-          pet={selectedPet}
-          closeModal={closeModal}
-          handleAdopt={handleAdopt}
-        />
-      )}
-
-      {successMessage && (
-        <div className="mt-4 text-green-500">{successMessage}</div>
-      )}
-    </div>
-    </div>
+        {successMessage && (
+          <div className="mt-4 text-green-500">{successMessage}</div>
+        )}
+      </div>
     </div>
   );
 };

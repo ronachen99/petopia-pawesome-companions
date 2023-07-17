@@ -60,7 +60,7 @@ export const UPDATE_PET = gql`
       name
       age
       gender
-      species {
+      speciesId {
         _id
         speciesType
         description
@@ -92,13 +92,17 @@ export const DELETE_PET = gql`
 `;
 
 export const ADD_PET = gql`
-mutation AddPet($name: String!, $speciesId: ID!, $age: Int!, $gender: String!) {
-  addPet(name: $name, speciesID: $speciesId, age: $age, gender: $gender) {
-    _id
-    age
-    gender
-    name
- 
+  mutation AddPet(
+    $name: String!
+    $speciesId: ID!
+    $age: Int!
+    $gender: String!
+  ) {
+    addPet(name: $name, speciesId: $speciesId, age: $age, gender: $gender) {
+      _id
+      age
+      gender
+      name
+    }
   }
-}
 `;

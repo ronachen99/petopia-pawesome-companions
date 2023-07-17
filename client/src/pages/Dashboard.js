@@ -21,12 +21,11 @@ const Dashboard = () => {
   const [updatePet] = useMutation(UPDATE_PET);
   // use optioanl chaining to hnadle cases where data is undefined
   const userData = data?.getUser || {};
+  console.log(userData);
 
   // use state hook to modify the state of editingPetId and updatedPetName
   const [editingPetId, setEditingPetId] = useState(null);
   const [updatedPetName, setUpdatedPetName] = useState("");
-
-  console.log(userData);
 
   // handles the deletion of the peet, taking in the petId and userId and calls the deletePet mutation function
   const handleDeletePet = async (petId, userId) => {
@@ -78,7 +77,7 @@ const Dashboard = () => {
   if (loading) {
     return <h2>LOADING...</h2>;
   }
-  console.log(data);
+
   return (
     <div className="flex flex-col justify-center min-h-screen">
       <div className="flex flex-wrap justify-center">
@@ -90,8 +89,8 @@ const Dashboard = () => {
             <div className="flex flex-col items-center pt-6 pb-4">
               <img
                 className="w-24 h-24 mt-2 mb-1 rounded-full shadow-lg"
-                src={pet.species.image}
-                alt={pet.species.alt}
+                src={pet.speciesId.image}
+                alt={pet.speciesId.alt}
               />
               <div className="flex items-center">
                 <h3 className="mb-1 text-xl font-medium text-gray-900">
@@ -121,10 +120,10 @@ const Dashboard = () => {
                 <PiPawPrintThin />
 
                 <h4 className="text-sm text-gray-500 uppercase">
-                  {pet.species.speciesType}
+                  {pet.speciesId.speciesType}
                 </h4>
               </div>
-              {pet.species.needs.map((need) => (
+              {pet.speciesId.needs.map((need) => (
                 <p key={need._id} className="mt-2">
                   {need.needType}
                 </p>
