@@ -13,7 +13,7 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
         </h2>
         <div className="flex justify-center mb-3">
           <img
-            className="flex justify-center mb-3"
+            className="flex justify-center mb-3 w-64 h-4/6"
             src={pet.species.image}
             alt={pet.species.alt}
           />
