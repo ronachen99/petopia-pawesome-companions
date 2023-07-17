@@ -56,21 +56,21 @@ const resolvers = {
       return { token, user };
     },
     // addPet mutation logic
-    addPet: async (parent, { name, species, age, gender, owner }, context) => {
+    addPet: async (parent, { name, speciesID, age, gender }, context) => {
       if (context.user) {
         try {
-          console.log({ name, species, age, gender, owner });
+          console.log({ name, speciesID, age, gender });
           // create the new pet
           const pet = await Pet.create({
             name,
-            species,
+            species: speciesID,
             age,
             gender,
-            owner,
+            owner: context.user._id,
           });
 
           // update the user's pets array
-          await User.findByIdAndUpdate(owner, { $push: { pets: pet._id } });
+          await User.findByIdAndUpdate(context.user._id, { $push: { pets: pet._id } });
           return Pet.findOne({ _id: pet._id })
             .populate("owner")
             .populate({

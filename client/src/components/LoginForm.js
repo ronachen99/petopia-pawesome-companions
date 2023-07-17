@@ -35,7 +35,6 @@ const LoginForm = () => {
       });
       console.log(data);
       Auth.login(data.login.token);
-      window.location.href = "/";
     } catch (err) {
       setErrorMessage("Incorrect credentials. Please try again.");
     }
