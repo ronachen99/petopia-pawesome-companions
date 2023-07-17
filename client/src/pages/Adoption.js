@@ -9,14 +9,15 @@ const petValidationSchema = Yup.object({
   Name: Yup.string().required("Name is required"),
   Age: Yup.number()
     .required("Age is required")
-    .min(0, "Age must be a positive number"),
+    .min(0, "Age must be a positive number")
+    .max(99, "Age must be less than 100"),
   Gender: Yup.string().required("Gender is required"),
 });
 
 const Modal = ({ pet, closeModal, handleAdopt }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 text-white">
-      <div className="bg-zinc-800 rounded-lg p-8 w-6/12">
+      <div className="bg-zinc-800 rounded-lg p-8 w-11/12 md:w-6/12 max-h-full overflow-y-auto">
         <h2 className="text-2xl mb-4 font-semibold">
           Adopt {pet?.species.speciesType}
         </h2>
@@ -27,21 +28,23 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
             alt={pet?.species.alt}
           />
         </div>
-        <p className="mb-2">
-          <span className="font-semibold">Species:</span>{" "}
-          {pet?.species.speciesType}
-        </p>
-        <p className="mb-4">
-          <span className="font-semibold">Description:</span>{" "}
-          {pet?.species.description}
-        </p>
-        {pet?.species.needs.map((need) => (
-          <p key={need._id} className="mt-2">
-            <span className="font-semibold">{need.needType}:</span>{" "}
-            {need.description}
+        <div className="flex flex-col space-y-2">
+          <p>
+            <span className="font-semibold">Species:</span>{" "}
+            {pet?.species.speciesType}
           </p>
-        ))}
-        <div className="flex flex-col items-center justify-center mt-4">
+          <p>
+            <span className="font-semibold">Description:</span>{" "}
+            {pet?.species.description}
+          </p>
+          {pet?.species.needs.map((need) => (
+            <p key={need._id}>
+              <span className="font-semibold">{need.needType}:</span>{" "}
+              {need.description}
+            </p>
+          ))}
+        </div>
+        <div className="mt-4 flex flex-col space-y-4">
           <Formik
             initialValues={{
               Name: "",
@@ -60,7 +63,7 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
               <Field
                 id="Name"
                 name="Name"
-                className="w-full px-3 py-1 rounded bg-white text-black "
+                className="w-full px-3 py-1 rounded bg-white text-black"
               />
               <ErrorMessage
                 name="Name"
@@ -73,6 +76,7 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
                 type="number"
                 name="Age"
                 min="0"
+                max="99"
                 className="w-full px-3 py-1 rounded bg-white text-black"
               />
               <ErrorMessage
@@ -101,7 +105,7 @@ const Modal = ({ pet, closeModal, handleAdopt }) => {
                   type="submit"
                   className="flex-grow bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
                 >
-                  Adopt
+                  Confirm
                 </button>
                 <button
                   className="flex-grow bg-zinc-500 hover:bg-zinc-600 text-white px-3 py-1 rounded"
@@ -129,7 +133,7 @@ const CongratulationsModal = ({ closeModal }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-zinc-800 rounded-lg p-8 w-6/12">
+      <div className="bg-zinc-800 text-white rounded-lg p-8 w-6/12">
         <h2 className="text-2xl mb-4 font-semibold">Congratulations!</h2>
         <p className="text-lg text-center">
           You have successfully adopted a new pet.
