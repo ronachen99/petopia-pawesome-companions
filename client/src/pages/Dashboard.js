@@ -33,6 +33,7 @@ const Dashboard = () => {
   const [editingPetId, setEditingPetId] = useState(null);
   const [updatedPetName, setUpdatedPetName] = useState("");
   const [isPencilClicked, setPencilClicked] = useState(false);
+  const [clickedPetCardId, setClickedPetCardId] = useState(null);
 
   // handles the deletion of the peet, taking in the petId and userId and calls the deletePet mutation function
   const handleDeletePet = async (petId, userId) => {
@@ -94,7 +95,14 @@ const Dashboard = () => {
         {data.user.pets.map((pet) => (
           <div
             key={pet._id}
-            className="m-2 w-full max-w-sm bg-white border rounded-lg"
+            className={`m-2 w-full max-w-sm bg-white border rounded-lg ${
+              clickedPetCardId === pet._id ? "tooltip-open" : ""
+            }`}
+            onClick={() =>
+              setClickedPetCardId((prevState) =>
+                prevState === pet._id ? "" : pet._id
+              )
+            }
           >
             <div className="flex flex-col items-center pt-6 pb-4">
               <img
@@ -128,26 +136,34 @@ const Dashboard = () => {
                 </h3>
               </div>
               <div
-                className="flex tooltip uppercase tooltip-right tooltip-primary"
+                className={`flex tooltip uppercase tooltip-left tooltip-primary ${
+                  clickedPetCardId === pet._id ? "tooltip-open" : ""
+                }`}
                 data-tip={"species: " + pet.speciesId.speciesType}
               >
                 <PiPawPrintThin size={28} className="text-black" />
               </div>
               <div
-                className="flex tooltip uppercase tooltip-right tooltip-secondary"
+                className={`flex tooltip uppercase tooltip-right tooltip-secondary ${
+                  clickedPetCardId === pet._id ? "tooltip-open" : ""
+                }`}
                 data-tip={"gender: " + pet.gender}
               >
                 <PiGenderIntersexThin size={28} className="text-black" />
               </div>
               <div
-                className="flex tooltip uppercase tooltip-right tooltip-accent"
+                className={`flex tooltip uppercase tooltip-left tooltip-accent ${
+                  clickedPetCardId === pet._id ? "tooltip-open" : ""
+                }`}
                 data-tip={"age: " + pet.age}
               >
                 <PiCakeThin size={28} className="text-black" />
               </div>
 
               <div
-                className="tooltip uppercase tooltip-right tooltip-error"
+                className={`flex tooltip uppercase tooltip-right tooltip-error ${
+                  clickedPetCardId === pet._id ? "tooltip-open" : ""
+                }`}
                 data-tip={
                   "needs: " +
                   pet.speciesId.needs
