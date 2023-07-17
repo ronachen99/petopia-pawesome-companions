@@ -92,40 +92,13 @@ export const DELETE_PET = gql`
 `;
 
 export const ADD_PET = gql`
-  mutation addPet(
-    $age: Int!
-    $gender: String!
-    $owner: ID!
-    $name: String!
-    $species: ID!
-  ) {
-    addPet(
-      age: $age
-      gender: $gender
-      owner: $owner
-      name: $name
-      species: $species
-    ) {
-      _id
-      name
-      age
-      gender
-      species {
-        _id
-        speciesType
-        description
-        image
-        alt
-        needs {
-          _id
-          needType
-          description
-        }
-      }
-      owner {
-        _id
-        email
-      }
-    }
+mutation AddPet($name: String!, $speciesId: ID!, $age: Int!, $gender: String!) {
+  addPet(name: $name, speciesID: $speciesId, age: $age, gender: $gender) {
+    _id
+    age
+    gender
+    name
+ 
   }
+}
 `;

@@ -54,10 +54,9 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addPet(
       name: String!
-      species: ID
+      speciesID: ID!
       age: Int!
       gender: String!
-      owner: ID!
     ): Pet
     updatePet(petID: ID!, name: String!): Pet
     deletePet(petID: ID!, userID: ID!): User

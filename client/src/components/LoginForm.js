@@ -49,8 +49,7 @@ const LoginForm = () => {
       console.log(data);
       // once logged in, a token is generated
       Auth.login(data.login.token);
-      // user is redired back to home
-      window.location.href = "/";
+      
     } catch (err) {
       // else send an error message for invalid credentials
       setErrorMessage("Wrong password or email. Please try again.");

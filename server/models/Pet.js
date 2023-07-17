@@ -22,7 +22,7 @@ const petSchema = new Schema({
     required: true,
     enum: ["Male", "Female"],
   },
-  species: {
+  speciesID: {
     type: Schema.Types.ObjectId,
     ref: "Species",
     required: true,
