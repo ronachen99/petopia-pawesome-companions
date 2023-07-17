@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_USER, QUERY_SPECIES } from "../utils/queries";
+import { QUERY_SPECIES } from "../utils/queries";
 import { ADD_PET } from "../utils/mutations";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -140,16 +140,12 @@ const CongratulationsModal = ({ closeModal }) => {
 };
 
 const Adoption = () => {
-  const { loading: userLoading, data: userData } = useQuery(QUERY_USER);
   const { loading: speciesLoading, data: speciesData } =
     useQuery(QUERY_SPECIES);
   const [addPet] = useMutation(ADD_PET);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPet, setSelectedPet] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
-
-  const user = userData?.getUser;
-  console.log(user);
 
   const handleAdopt = async (speciesId, values) => {
     const { Name, Gender, Age } = values;
@@ -176,7 +172,7 @@ const Adoption = () => {
     setModalOpen(false);
   };
 
-  if (userLoading || speciesLoading) {
+  if (speciesLoading) {
     return <h2>LOADING...</h2>;
   }
 
