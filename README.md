@@ -12,6 +12,7 @@ The site also displays needs and requirements for each digital pet.
 - [Getting Started](#getting-started)
 - [License](#license)
 - [Deployment](#deployment)
+- [Application Demonstration](#application-demonstration)
 - [Acknowledgements](#acknowledgements)
 - [Inspiration](#inspiration)
 - [Contact](#contact)
@@ -31,20 +32,23 @@ Responsive Design: The site is optimized for various devices, ensuring a consist
 - Authentication: User authentication is implemented using JSON Web Tokens (JWT) to securely manage user sessions and protect user data.
 
 ## Getting Started
-Clone the repository: git clone https://github.com/your-username/digital-pet-adoption-site.git
-Install the dependencies: cd digital-pet-adoption-site and run npm install
+Clone the repository: git clone https://github.com/ronachen99/petopia-pawesome-companions.git
+Install the dependencies: cd petopia-pawesome-companions and run npm install
 Set up the back-end server and configure the database connection.
 Start the development server: npm start
 Open your web browser and navigate to http://localhost:3000 to access the site.
-Contributing
-Contributions are welcome! If you find any bugs or want to add new features, please submit an issue or create a pull request. Be sure to follow the project's coding style and guidelines.
 
 ## License
 ![MIT License](https://img.shields.io/badge/license-MIT%20License-purple.svg)
 This project is licensed under the MIT License.
 
 ## Deployment
-Click on the purple bug [👾](https://cash-cow-finance-8e34336f910f.herokuapp.com/) to visit our site.
+Click on the purple bug [👾](https://intense-sierra-89896-223bb459cf81.herokuapp.com/) to visit our site.
+
+## Application Demonstration
+Watch it on [Google Drive](https://drive.google.com/file/d/1Yg5sQcqRy0O4kgWjjluaWNCo2jeegmr8/view)%F0%9F%91%BE
+
+![User going through an interactive virtual pet application and starting over.](./client/public/images/demo.gif)
 
 ## Acknowledgments
 Special thanks to the developers and contributors of the libraries and frameworks used in this project.
