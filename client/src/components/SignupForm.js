@@ -78,7 +78,7 @@ const SignupForm = () => {
                       {field.label}
                     </label>
                     <Field
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 bg-zinc-800  focus:ring-zinc-500 focus:border-transparent"
                       type={field.type}
                       id={field.name}
                       name={field.name}
@@ -93,7 +93,7 @@ const SignupForm = () => {
 
                 <div className="flex justify-end">
                   <button
-                    className={`bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded border-b-4 border-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent ${
+                    className={`bg-zinc-600 hover:bg-zinc-800 text-white font-bold py-2 px-4 rounded border-b-4 border-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:border-transparent ${
                       isValid && !isSubmitting
                         ? "cursor-pointer"
                         : "cursor-not-allowed opacity-50"

@@ -17,7 +17,7 @@ function App() {
   return (
     // router provides routing functionality
     <Router>
-      <div className="relative">
+      <div className="min-h-screen relative">
         {/* header rendered at the top */}
         <Header />
         {/* defines the routes in the app */}

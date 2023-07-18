@@ -114,7 +114,7 @@ const Dashboard = () => {
                 <h3 className="mb-1 text-xl font-medium text-zinc-900">
                   {editingPetId === pet._id ? (
                     <input
-                      className="text-white text-center rounded"
+                      className="bg-zinc-500 text-white text-center rounded"
                       type="text"
                       value={updatedPetName}
                       onChange={(e) => setUpdatedPetName(e.target.value)}
