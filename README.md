@@ -39,7 +39,7 @@ This project is licensed under the MIT License.
 
 ## Acknowledgments
 Special thanks to the developers and contributors of the libraries and frameworks used in this project.
-Rona Chen, Andrew Persaud and Alexis Gonzalez.
+Rona Chen and Andrew Persaud.
 
 ## Inspiration
 This project was inspired by the joy of pet adoption and the desire to provide a fun and interactive virtual experience for users.
