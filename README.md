@@ -3,12 +3,15 @@ This is a digital pet adoption site where users can find and adopt virtual pets.
 The site requires users to log in to access the available pets for adoption.
 The site also displays needs and requirements for each digital pet.
 
+
+
 ## Table of Contents
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
-- [Licenses](#licenses)
+- [License](#license)
+- [Deployment](#deployment)
 - [Acknowledgements](#acknowledgements)
 - [Inspiration](#inspiration)
 - [Contact](#contact)
@@ -20,11 +23,13 @@ Adoption Process: Users can select a pet they wish to adopt and provide necessar
 User Dashboard: Logged-in users have access to a personalized dashboard where they can manage their adopted pets. They can view and edit their pet's information, such as name and age.
 Real-Time Updates: When a user successfully adopts a pet, the dashboard and available pet listings are automatically updated to reflect the changes, providing a seamless user experience.
 Responsive Design: The site is optimized for various devices, ensuring a consistent and user-friendly experience on desktops, tablets, and mobile devices.
+
 ## Technologies Used
 - Front-end: The site is built using React.js, a popular JavaScript library for building user interfaces. It utilizes modern front-end technologies like Apollo Client for GraphQL integration, Formik for form handling, and Tailwind CSS for styling.
 - Back-end: The site interacts with a back-end server that handles user authentication, pet data storage, and database operations. The server is built using Node.js and employs GraphQL for efficient data retrieval and mutation.
 - Database: The site leverages a database system to store and retrieve pet and user data. A popular choice for this purpose is MongoDB, a NoSQL database that provides flexibility and scalability.
 - Authentication: User authentication is implemented using JSON Web Tokens (JWT) to securely manage user sessions and protect user data.
+
 ## Getting Started
 Clone the repository: git clone https://github.com/your-username/digital-pet-adoption-site.git
 Install the dependencies: cd digital-pet-adoption-site and run npm install
@@ -35,7 +40,11 @@ Contributing
 Contributions are welcome! If you find any bugs or want to add new features, please submit an issue or create a pull request. Be sure to follow the project's coding style and guidelines.
 
 ## License
-This project is licensed under the MIT License. 
+![MIT License](https://img.shields.io/badge/license-MIT%20License-purple.svg)
+This project is licensed under the MIT License.
+
+## Deployment
+Click on the purple bug [👾](https://cash-cow-finance-8e34336f910f.herokuapp.com/) to visit our site.
 
 ## Acknowledgments
 Special thanks to the developers and contributors of the libraries and frameworks used in this project.
