@@ -1,7 +1,7 @@
 # Petopia Pawesome Companion
 This is a digital pet adoption site where users can find and adopt virtual pets. 
 The site requires users to log in to access the available pets for adoption.
-The site also displays needs and requirements for each digital pet.
+The site also displays the needs and requirements for each digital pet.
 
 
 
@@ -46,7 +46,7 @@ This project is licensed under the MIT License.
 Click on the purple bug [👾](https://intense-sierra-89896-223bb459cf81.herokuapp.com/) to visit our site.
 
 ## Application Demonstration
-Watch it on [Google Drive](https://drive.google.com/file/d/1Yg5sQcqRy0O4kgWjjluaWNCo2jeegmr8/view)%F0%9F%91%BE
+Watch it on [Google Drive](https://drive.google.com/file/d/1Yg5sQcqRy0O4kgWjjluaWNCo2jeegmr8/view)👾
 
 ![User going through an interactive virtual pet application and starting over.](./client/public/images/demo.gif)
 
