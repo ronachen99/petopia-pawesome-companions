@@ -1,7 +1,6 @@
 {
   "name": "petopia-pawesome-companions",
   "version": "1.0.0",
-  "homepage": "https://intense-sierra-89896-223bb459cf81.herokuapp.com/",
   "description": "",
   "main": "server/server.js",
   "scripts": {
